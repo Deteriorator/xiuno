@@ -85,8 +85,19 @@ if($method == 'GET') {
 			),
 			'slaves' => array()
 		);
-		$db = new db_pdo_mysql($conf['db']['pdo_mysql']);
 		
+		$db = new db_pdo_mysql($conf['db']['pdo_mysql']);
+		$db->connect();
+		
+		if($db->errno == -10000) {
+			$db->errno = 0;
+			$r = $link->exec("CREATE DATABASE `$name`");
+			if($r === FALSE) {
+				message(-1, "尝试创建数据库失败：$name");
+			}
+		} elseif($db->errno != 0) {
+			message(-1, $db->errstr);
+		}
         } else {
         	
 		message(-1, '不支持的 type');   
@@ -117,12 +128,12 @@ if($method == 'GET') {
 		'create_date' => $time,
 	);
 	user_update(1, $admin);
-	friendlink_create(array(
+	/*friendlink_create(array(
 		'name'         => 'Xiuno BBS',
 		'url'         => 'http://bbs.xiuno.com/',
 		'rank'         => 0,
 		'create_date'  => $time,
-	));
+	));*/
 	
 	$setting = array('sitebrief'=>'', 'seo_title'=>'', 'seo_keywords'=>'', 'seo_description'=>'', 'footer_code'=>'');
 	kv_set('setting', $setting);

@@ -953,11 +953,11 @@ $.XNEditor.prototype.history = function(action) {
 		this.history_saved = false;
 		if(Date.now() - this.history_last_time  >= 2000) {
 			if(i == -1 || (i > -1 && this.history_arr[i] != s)) {
-				// 如果超出 100 步，则干掉前面的30个
-				if(this.history_arr.length >= 100) {
-					this.history_arr = this.history_arr.slice(30, this.history_arr.length);
-					this.history_arr.length = 70;
-					i = 69;
+				// 如果超出 30 步，则干掉前面的10个
+				if(this.history_arr.length >= 30) {
+					this.history_arr = this.history_arr.slice(10, this.history_arr.length);
+					this.history_arr.length = 20;
+					i = 19;
 				}
 				jtoolbar.son('a.undo').removeClass('disabled');
 				i++;

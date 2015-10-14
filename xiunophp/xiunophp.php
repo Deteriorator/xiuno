@@ -1209,7 +1209,7 @@ function init_query_string() {
 	!isset($_SERVER['REQUEST_URI']) AND $_SERVER['REQUEST_URI'] = '';
 
 	// 兼容 iis6
-	$_SERVER['REQUEST_URI'] = str_replace('/index.php?', '', $_SERVER['REQUEST_URI']);
+	$_SERVER['REQUEST_URI'] = str_replace('/index.php?', '/', $_SERVER['REQUEST_URI']);
 	
 	$arr = parse_url($_SERVER['REQUEST_URI']);
 

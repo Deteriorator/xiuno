@@ -56,7 +56,7 @@ Array
     [t_url] => http://i3.tietuku.com/43032dff494754d5t.jpg
 )
 */
-function tietuku_upload_file($filepath, $filename) {
+function tietuku_upload_file($filepath, $filename = '') {
 	global $conf;
 	$token = $conf['tietuku_token'];
 	$post_url = 'http://up.tietuku.com/';

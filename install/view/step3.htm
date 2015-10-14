@@ -53,7 +53,7 @@ jform.on('submit', function(code, message) {
 	return false;
 });
 var jurlrewrite = $('#urlrewrite');
-$.xget('../index.htm', function(code, message) {
+$.xget('../', function(code, message) {
 	if(message.indexOf('xiunoui/xiuno.css') != -1) {
 		jurlrewrite.find('td').eq(2).text('配置正确');
 		jurlrewrite.find('td').eq(3).html('<div class="ok"><b class="icon check green"></b>通过</div>');

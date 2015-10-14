@@ -109,11 +109,11 @@ if($action == 'create') {
 	// Rewrite 以后：http://x.com/thread-seo-xxx-xxx-xxxx-xxx.htm
 	// index 中如果开启了 rewrite, $tid, $thread 会被初始化！
 	
-	$conf['seo_url_rewrite'] AND $tid == -1 AND message(1, '主题不存在');
+	$conf['seo_url_rewrite'] AND $tid == -1 AND exit(header("HTTP/1.1 404 Not Found"));
 	if(!$conf['seo_url_rewrite'] || $conf['seo_url_rewrite'] && isset($tid) && $tid == 0) {
 		$tid = param(1, 0);
 		$thread = thread_read($tid);
-		empty($thread) AND message(1, '主题不存在');
+		empty($thread) AND exit(header("HTTP/1.1 404 Not Found"));
 	}
 	$fid = $thread['fid'];
 	$forum = forum_read($fid);

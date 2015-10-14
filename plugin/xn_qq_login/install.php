@@ -25,6 +25,10 @@ $user['gid'] != 1 AND message(-1, '需要管理员权限才能完成安装。');
 plugin_install_after('./pc/view/user_login.htm', '</dl>', file_get_contents('./plugin/xn_qq_login/user_login.htm.1.inc.htm'));
 
 
+//---------------> 第二处插入
+plugin_install_after('./mobile/view/user_login.htm', '</dl>', file_get_contents('./plugin/xn_qq_login/user_login.htm.1.inc.htm'));
+
+
 $runtime = runtime_init();
 runtime_set('qq_login_enable', 1, TRUE);
 

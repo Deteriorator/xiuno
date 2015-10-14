@@ -21,9 +21,13 @@ $user = user_token_get('', 'bbs');
 //$user['gid'] != 1 AND message(-1, '需要管理员权限才能完成卸载。');
 
 
-
 // 第一处卸载
 plugin_unstall_after('./pc/view/user_login.htm', '</dl>', file_get_contents('./plugin/xn_qq_login/user_login.htm.1.inc.htm'));
+
+
+// 第二处卸载
+plugin_unstall_after('./mobile/view/user_login.htm', '</dl>', file_get_contents('./plugin/xn_qq_login/user_login.htm.1.inc.htm'));
+
 
 $runtime = runtime_init();
 runtime_set('qq_login_enable', 0, TRUE);

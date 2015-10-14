@@ -115,9 +115,9 @@ function plugin_install_append($file, $s) {
 	return file_put_contents($file, $new);
 }
 
-function plugin_install_remove($file, $s) {
-	$old = file_get_contents($file);
-	$new = str_replace($s, '', $old);
+function plugin_install_remove($file, $old) {
+	$s = file_get_contents($file);
+	$new = str_replace($old, '', $s);
 	return file_put_contents($file, $new);
 }
 
@@ -159,7 +159,7 @@ function plugin_unstall_after($file, $keyword, $code) {
 
 function plugin_install_replace($file, $old, $new) {
 	$s = file_get_contents($file);
-	$s2 = str_replace($s, $old, $new);
+	$s2 = str_replace($old, $new, $s);
 	if($s != $s2) {
 		return file_put_contents($file, $s2);
 	} else {
@@ -169,7 +169,7 @@ function plugin_install_replace($file, $old, $new) {
 
 function plugin_unstall_replace($file, $old, $new) {
 	$s = file_get_contents($file);
-	$s2 = str_replace($s, $old, $new);
+	$s2 = str_replace($old, $new, $s);
 	if($s != $s2) {
 		return file_put_contents($file, $s2);
 	} else {
@@ -181,15 +181,13 @@ function plugin_unstall_replace($file, $old, $new) {
 function plugin_unstall_code($file, $code) {
 	$range_start = range_start_keyword($file, $code);
 	if($range_start === FALSE) return xn_error(-1, '未找到特定字符串，可能版本不对或插件已经卸载。');
-	$range_end = $range_start + strlen($code.$keyword);
-	
-	if(range_start_keyword($file, $code) === FALSE) return xn_error(-1, '插件点已经卸载。');
+	$range_end = $range_start + strlen($code);
 	
 	$plugin = array (
 		'file'=> $file,							// bbs 源文件
 		'range_start'=> $range_start,					// bbs 源文件开始第几个字符
 		'range_end'=> $range_end,					// bbs 源文件结束到第几个字符
-		'code'=> $keyword,						// 要插入的代码
+		'code'=> '',							// 要插入的代码
 	);
 	
 	return plugin_install($plugin);
