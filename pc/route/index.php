@@ -35,6 +35,7 @@ $header['description'] = $setting['seo_description']; 	// 描述
 // 最新主题
 //$new_tids = forum_new_tids(($order == 'lastpid' ? $threadlist : array()));
 
+
 include './pc/view/index.htm';
 
 ?>

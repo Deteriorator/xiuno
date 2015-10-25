@@ -150,6 +150,9 @@ function post_delete($pid) {
 	
 	($post['images'] || $post['files']) AND attach_delete_by_pid($pid);
 	
+	// 检查 lastpid
+	thread_check_lastpid($tid, $pid);
+	
 	return $r;
 }
 

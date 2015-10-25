@@ -110,6 +110,13 @@ function online_list_cache_delete($fid = 0) {
 	}
 }
 
+/*
+	1. 第一次请求没有 sid, 则生成一个 sid, 发送到客户端保存到 cookie
+	2. 第二次访问，才会记录到 online 表
+	3. online 表中记录了少量 session 数据
+	4. 每隔5分钟清理一次过期的会话记录(超过1小时没活动的）
+
+*/
 function online_init() {
 	global $time, $conf, $uid, $g_online_save;
 	
@@ -156,7 +163,7 @@ function online_save($force = FALSE) {
 	return $arr;
 }
 
-// 计划任务，每隔5分钟清理一次。
+// 计划任务，每隔10分钟清理一次。
 function online_gc() {
 	global $time, $conf;
 	$expiry = $time - $conf['online_hold_time'];

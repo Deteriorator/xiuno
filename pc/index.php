@@ -40,16 +40,15 @@ $forumlist = forum_list_cache();
 $user = user_token_get(); 			// 全局的 user
 $uid = $user['uid'];				// 全局的 uid
 $gid = $user['gid'];				// 全局的 gid
-$group = $grouplist[$gid]; 			// 全局的 user
+$group = $grouplist[$gid]; 			// 全局的 group
 
 $forumlist_show = forum_list_access_filter($forumlist, $gid);	// 有权限查看的板块
 
 $header['title'] = $conf['sitename']; 		// 网站标题
-$header['keywords'] = $conf['sitename']; 		// 关键词
+$header['keywords'] = $conf['sitename']; 	// 关键词
 $header['description'] = $conf['sitename']; 	// 描述
 $header['navs'] = array(); 			// 描述
 
-// 启动在线，将清理函数注册，不能写日志。
 $runtime = runtime_init();
 $sid = online_init();
 $fid = 0;					// 当前所在的板块

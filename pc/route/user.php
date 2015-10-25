@@ -249,16 +249,27 @@ if($action == 'login') {
 		$email = param('email');
 		!is_email($email, $err) AND message(1, $err);
 		$user = user_read_by_email($email);
-		!$user AND message(1, 'EMAIL 未被注册。');
+		!$user AND message(1, 'EMAIL 未被注册');
 		
 		$verifycode = param('verifycode');
-		empty($verifycode) AND message(2, '请输入校验码。');
+		empty($verifycode) AND message(2, '请输入校验码');
 		
 		$email2 = online_get('reset_email');
 		$verifycode2 = online_get('reset_verifycode');
-		(empty($email2) || empty($verifycode2)) AND message(2, '请点击获取验证码。');
+		(empty($email2) || empty($verifycode2)) AND message(2, '请点击获取验证码');
 		
-		$verifycode2 != $verifycode AND message(2, '验证码不正确');
+		// 每小时只能尝试 5 次
+		$verifytimes = intval(online_get('verifytimes'));
+		$verifylastdate = intval(online_get('verifylastdate'));
+		if($verifytimes > 5 && $time - $verifylastdate < 3600) {
+			message(2, '请稍后重试，每个小时只能尝试5次。');
+		}
+		if($verifycode2 != $verifycode) {
+			$verifytimes++;
+			online_set('verifytimes', $verifytimes);
+			online_set('verifylastdate', $time);
+			message(2, '验证码不正确');
+		}
 		
 		message(0, '检测通过，进入下一步');
 	}
@@ -280,7 +291,7 @@ if($action == 'login') {
 	$r = user_read_by_email($email);
 	!$r AND message(1, 'Email 未被注册。');
 	
-	$rand = rand(1000, 9999);
+	$rand = rand(100000, 999999);
 	
 	online_set('reset_email', $email);
 	online_set('reset_verifycode', $rand);

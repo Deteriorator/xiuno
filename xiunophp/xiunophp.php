@@ -1206,6 +1206,7 @@ function is_robot() {
  */
 function init_query_string() {
 
+	!empty($_SERVER['HTTP_X_REWRITE_URL']) AND $_SERVER['REQUEST_URI'] = $_SERVER['HTTP_X_REWRITE_URL'];
 	!isset($_SERVER['REQUEST_URI']) AND $_SERVER['REQUEST_URI'] = '';
 
 	// 兼容 iis6

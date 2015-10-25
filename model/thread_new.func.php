@@ -30,7 +30,8 @@ function thread_new_find() {
 }
 
 function thread_new_truncate() {
-	return db_exec("TRUNCATE `bbs_thread_new`");	
+	db_exec("TRUNCATE `bbs_thread_new`");
+	thread_new_cache_delete();
 }
 
 function thread_new_find_cache() {
@@ -60,7 +61,6 @@ function thread_new_gc() {
 	if(thread_new_count() > 100) {
 		$threadlist = thread_new_find();
 		thread_new_truncate();
-		thread_new_cache_delete();
 		foreach ($threadlist as $v) {
 			thread_new_create($v['tid']);
 		}

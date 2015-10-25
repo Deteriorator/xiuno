@@ -467,4 +467,19 @@ function thread_url_replace($tid, $url) {
 		return TRUE;
 	}
 }
+
+function thread_check_lastpid($tid, $lastpid) {
+	// 查找最新的 pid
+	$thread = thread_read_cache($tid);
+	if(empty($thread)) return;
+	if($thread['lastpid'] == $lastpid) {
+		$arr = db_find_one("SELECT pid FROM bbs_post WHERE tid='$tid' ORDER BY pid DESC LIMIT 1");
+		if(empty($arr)) return;
+		$lastpid = $arr['pid'];
+		db_exec("UPDATE bbs_thread SET lastpid='$lastpid' WHERE tid='$tid'");
+		// 如果在最新主题当中，应该清理掉。
+		//thread_lastpid_truncate();
+	}
+}
+
 ?>

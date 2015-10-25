@@ -43,7 +43,8 @@ function thread_lastpid_find() {
 }
 
 function thread_lastpid_truncate() {
-	return db_exec("TRUNCATE `bbs_thread_lastpid`");	
+	db_exec("TRUNCATE `bbs_thread_lastpid`");
+	thread_lastpid_cache_delete();
 }
 
 function thread_lastpid_find_cache() {
@@ -76,7 +77,6 @@ function thread_lastpid_gc() {
 	if(thread_lastpid_count() > 100) {
 		$threadlist = thread_lastpid_find();
 		thread_lastpid_truncate();
-		thread_lastpid_cache_delete();
 		foreach ($threadlist as $v) {
 			thread_lastpid__create($v['tid'], $v['lastpid']);
 		}
