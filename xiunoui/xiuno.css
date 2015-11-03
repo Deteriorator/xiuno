@@ -862,7 +862,7 @@ div.scrollbar { width: 4px; position: absolute; top: 29.2px; opacity: 0.4; borde
 div.scrollbar:hover { width: 4px; position: absolute; top: 29.2px; opacity: 0.4; border-radius: 4px; z-index: 99; right: 0px; display: none; background: #000000; }
 div.scrollrail { width: 4px; height: 100%; position: absolute; top: 0px; border-radius: 4px; z-index: 90; right: 0px; display: none; background: #989EA4; }
 
-.breakall {word-break: break-all;}
+.breakall {word-break: break-word;}
 .margin, dl.row.margin, ul.row.margin, div.panel.margin {margin-top: 8px;}
 .margin2, dl.row.margin2, ul.row.margin2, div.panel.margin2 {margin-top: 16px;}
 .margin4, dl.row.margin4, ul.row.margin4, div.panel.margin4 {margin-top: 32px;}

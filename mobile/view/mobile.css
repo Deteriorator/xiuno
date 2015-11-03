@@ -62,13 +62,13 @@ div.thread.thread_top_3 > table a.subject {font-weight: 800;}
 
 div.thread_post, div.thread_post div, div.thread_post p {
 	font-size: 15px;
-	word-break: break-all;
+	word-break: break-word;
 }
 div.thread_post {padding-top: 8px;}
 div.editor > div.body > div, div.editor > div.body > p {font-size: 15px;}
 div.post, div.post p {
 	font-size: 14px;
-	word-break: break-all;
+	word-break: break-word;
 }
 div.post img, div.thread_post img {max-width: 100%; height: auto;}
 p.subject {margin-top: 0px; font-size: 16px;}

@@ -25,6 +25,8 @@ thread_list_access_filter($threadlist, $gid);
 $linklist = friendlink_find_cache();
 $onlinelist = online_find_cache();
 
+$runtime['onlines'] = count($onlinelist);
+
 // SEO 相关
 empty($setting) AND $setting = array('sitebrief'=>'', 'seo_title'=>'', 'seo_keywords'=>'', 'seo_description'=>'', 'footer_code'=>'');
 $sitebrief = $setting['sitebrief'];
