@@ -11,18 +11,18 @@
 				<th width="100">编辑</th>
 				<th align="left">删除</th>
 			</tr>
-			<? foreach($forumlist as &$forum) { ?>
-			<tr align="center" fid="<?=$forum['fid']?>">
+			<?php foreach($forumlist as &$forum) { ?>
+			<tr align="center" fid="<?php echo $forum['fid']; ?>">
 				<td style="background: url(static/bg_left.gif); color: grey;">
-					<img src="<?=$forum['icon_url']?>" class="forum" align="absmiddle" />
+					<img src="<?php echo $forum['icon_url']; ?>" class="forum" align="absmiddle" />
 					<input type="file" multiple="multiple" accept=".jpg,.jpeg,.png,.gif,.bmp"  class="upload" style="width: 65px; opacity: 0.7" value="更换图片"/>
 				</td>
-				<td><input type="text" name="name" value="<?=$forum['name']?>" placeholder="板块名称" /></td>
-				<td><input type="text" name="rank" value="<?=$forum['rank']?>" style="width: 100px" placeholder="0" /></td>
-				<td><a href="admin/forum-update-<?=$forum['fid']?>.htm" class="update" >编辑</a></td>
-				<td align="left"><a href="admin/forum-delete-<?=$forum['fid']?>.htm" class="delete">删除</a></td>
+				<td><input type="text" name="name" value="<?php echo $forum['name']; ?>" placeholder="板块名称" /></td>
+				<td><input type="text" name="rank" value="<?php echo $forum['rank']; ?>" style="width: 100px" placeholder="0" /></td>
+				<td><a href="admin/forum-update-<?php echo $forum['fid']; ?>.htm" class="update" >编辑</a></td>
+				<td align="left"><a href="admin/forum-delete-<?php echo $forum['fid']; ?>.htm" class="delete">删除</a></td>
 			</tr>
-			<? } ?>
+			<?php } ?>
 		</table>
 		<p class="hr"></p>
 		<p class="margin"><button type="button" loading-text="正在提交...>" id="submit" class="blue big" style="margin-left: 300px;" >确定</button></p>
@@ -35,7 +35,7 @@
 <script src="xneditor/editor.js"></script>
 <script>
 
-var maxfid = <?=$maxfid?>;
+var maxfid = <?php echo $maxfid; ?>;
 var jtable = $('#table');
 var jsubmit = $("#submit");
 var jtrs = jtable.find('tr');

@@ -1,39 +1,39 @@
-<? include "./pc/view/user_header.inc.htm"; ?>
+<?php include "./pc/view/user_header.inc.htm"; ?>
 
-<? if($_user['uid'] > 0) { ?>
+<?php if($_user['uid'] > 0) { ?>
 	<div class="panel_body margin">
 		<table class="layout">
 			<tr>
 				<td align="center" valign="top" width="150">
-					<img src="<?=$_user['avatar_url']?>" class="avatar big" />
+					<img src="<?php echo $_user['avatar_url']; ?>" class="avatar big" />
 				</td>
 				<td width="200" valign="top">
 					<dl class="row form">
-						<dt class="col-2">用户名：</dt><dd class="col-8"><?=$_user['username']?></dd>
-						<dt class="col-2">用户组：</dt><dd class="col-8"><?=$_user['groupname']?></dd>
+						<dt class="col-2">用户名：</dt><dd class="col-8"><?php echo $_user['username']; ?></dd>
+						<dt class="col-2">用户组：</dt><dd class="col-8"><?php echo $_user['groupname']; ?></dd>
 					</dl>
 				</td>
 				<td width="200" valign="top">
 					<dl class="row form">
-						<? if($group['allowviewip']) { ?>
-						<dt class="col-2">Email：</dt><dd class="col-8"><?=$_user['email']?></dd>
-						<dt class="col-2">注册IP：</dt><dd class="col-8"><?=$_user['create_ip_fmt']?> <?=($banip ? '[禁止至：'.$banip['expiry_fmt'].']' : '')?></dd>
-						<? } ?>	
+						<?php if($group['allowviewip']) { ?>
+						<dt class="col-2">Email：</dt><dd class="col-8"><?php echo $_user['email']; ?></dd>
+						<dt class="col-2">注册IP：</dt><dd class="col-8"><?php echo $_user['create_ip_fmt']; ?> <?php echo ($banip ? '[禁止至：'.$banip['expiry_fmt'].']' : ''); ?></dd>
+						<?php } ?>	
 					</dl>
 				</td>
 				<td width="150">
 					<dl class="row form">
-						<dt class="col-3">主题：</dt><dd class="col-7"><?=$_user['threads']?></dd>
-						<dt class="col-3">帖子：</dt><dd class="col-7"><?=$_user['posts']?></dd>
-						<dt class="col-3">被赞：</dt><dd class="col-7"><?=$_user['agrees']?></dd>
+						<dt class="col-3">主题：</dt><dd class="col-7"><?php echo $_user['threads']; ?></dd>
+						<dt class="col-3">帖子：</dt><dd class="col-7"><?php echo $_user['posts']; ?></dd>
+						<dt class="col-3">被赞：</dt><dd class="col-7"><?php echo $_user['agrees']; ?></dd>
 					</dl>
 				</td>
 			</tr>
 		</table>
 	</div>
 	<p class="center margin">
-		<? if(!empty($group['allowbanuser'])) { ?>
-		<select id="day_<?=$_ip_url?>">
+		<?php if(!empty($group['allowbanuser'])) { ?>
+		<select id="day_<?php echo $_ip_url; ?>">
 			<option value="1">一天</option>
 			<option value="3">三天</option>
 			<option value="7">一周</option>
@@ -42,38 +42,38 @@
 			<option value="0">永久禁止</option>
 			<option value="-1">解除禁止</option>
 		</select> &nbsp;
-		<button class="red middle cancel" id="user_banip_<?=$_ip_url?>">禁止/解除注册 IP</button>
-		<? } ?>
+		<button class="red middle cancel" id="user_banip_<?php echo $_ip_url; ?>">禁止/解除注册 IP</button>
+		<?php } ?>
 		　　
-		<? if(!empty($group['allowdeleteuser'])) { ?>
-		<button class="red middle cancel" id="user_delete_<?=$_uid?>">删除用户</button>
-		<? } ?>
+		<?php if(!empty($group['allowdeleteuser'])) { ?>
+		<button class="red middle cancel" id="user_delete_<?php echo $_uid; ?>">删除用户</button>
+		<?php } ?>
 	</p>
 	
 <!-- 游客: 禁止IP -->
-<? } else { ?>
+<?php } else { ?>
 	
 	<div class="panel_body margin">
 		<dl class="row vtop">
 			<dt style="width: 35%;" class="center">
-				<img src="<?=$_user['avatar_url']?>" class="avatar big" /><br>
+				<img src="<?php echo $_user['avatar_url']; ?>" class="avatar big" /><br>
 			</dt>
 			<dd style="width: 65%;">
 				<ul class="row vtop profile">
 					<li>
-						<p>用户名：<b><?=$_user['username']?></b></p>
-						<p>用户组：<?=$_user['groupname']?></p>
-						<? if($group['allowviewip']) { ?>
-						<p>IP：<?=$_ip?> <?=($banip ? '[已禁止，截止日期：'.$banip['expiry_fmt'].']' : '')?></p>
-						<? } ?>
+						<p>用户名：<b><?php echo $_user['username']; ?></b></p>
+						<p>用户组：<?php echo $_user['groupname']; ?></p>
+						<?php if($group['allowviewip']) { ?>
+						<p>IP：<?php echo $_ip; ?> <?php echo ($banip ? '[已禁止，截止日期：'.$banip['expiry_fmt'].']' : ''); ?></p>
+						<?php } ?>
 					</li>
 				</ul>
 				
 			</dd>
 		</dl>
 		<p class="center">
-			<? if(!empty($group['allowbanuser'])) { ?>
-			<select id="day_<?=$_ip_url?>" style="margin-left: -50px;">
+			<?php if(!empty($group['allowbanuser'])) { ?>
+			<select id="day_<?php echo $_ip_url; ?>" style="margin-left: -50px;">
 				<option value="1">一天</option>
 				<option value="3">三天</option>
 				<option value="7">一周</option>
@@ -82,22 +82,22 @@
 				<option value="0">永久禁止</option>
 				<option value="-1">解除禁止</option>
 			</select> &nbsp;
-			<button class="red middle cancel" id="user_banip_<?=$_ip_url?>">禁止/解除 IP</button>
-			<? } ?>
+			<button class="red middle cancel" id="user_banip_<?php echo $_ip_url; ?>">禁止/解除 IP</button>
+			<?php } ?>
 		</p>
 	</div>
-<? } ?>
+<?php } ?>
 
-<? include "./pc/view/user_footer.inc.htm"; ?>
+<?php include "./pc/view/user_footer.inc.htm"; ?>
 
 <script>
 
 // 删除用户
-var jsubmit = $('#user_delete_<?=$_uid?>');
+var jsubmit = $('#user_delete_<?php echo $_uid; ?>');
 jsubmit.off('click').on('click', function() {
 	if(window.confirm('确定删除用户吗？')) {
 		// 这里可能需要调用多次才能彻底删除用户。考虑超时。
-		$.xpost('pc/mod-deleteuser-<?=$_uid?>.htm', function(code, message) {
+		$.xpost('pc/mod-deleteuser-<?php echo $_uid; ?>.htm', function(code, message) {
 			if(code == 0) {
 				jsubmit.button(message);
 				setTimeout(function() {window.location.reload();}, 500);
@@ -110,11 +110,11 @@ jsubmit.off('click').on('click', function() {
 });
 
 // 禁止 ip
-var jbansubmit = $('#user_banip_<?=$_ip_url?>');
-var jday = $('#day_<?=$_ip_url?>');
+var jbansubmit = $('#user_banip_<?php echo $_ip_url; ?>');
+var jday = $('#day_<?php echo $_ip_url; ?>');
 jbansubmit.off('click').on('click', function() {
 	// 这里可能需要调用多次才能彻底删除用户。考虑超时。
-	$.xpost('pc/mod-banip-<?=$_ip_url?>-'+xn_urlencode(jday.val())+'.htm', function(code, message) {
+	$.xpost('pc/mod-banip-<?php echo $_ip_url; ?>-'+xn_urlencode(jday.val())+'.htm', function(code, message) {
 		if(code == 0) {
 			jbansubmit.button(message);
 			setTimeout(function() {window.location.reload();}, 500);

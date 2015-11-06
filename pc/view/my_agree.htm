@@ -1,21 +1,21 @@
-<? include "./pc/view/my_header.inc.htm"; ?>
+<?php include "./pc/view/my_header.inc.htm"; ?>
 
 <table class="tlist margin" width="100%">
 	<tr align="center">
 		<th align="left">主题</th>
 		<th width="100">点赞时间</th>
 	</tr>
-	<? foreach ($threadlist as $thread) { ?>
+	<?php foreach ($threadlist as $thread) { ?>
 	<tr align="center">
-		<td align="left" class="breakall"><a href="<?=$thread['url']?>"><?=$thread['subject']?></a><br><i><?=$thread['message']?></i></td>
-		<td><i class="icon agreed"></i><?=$thread['agree_create_date_fmt']?></td>
+		<td align="left" class="breakall"><a href="<?php echo $thread['url']; ?>"><?php echo $thread['subject']; ?></a><br><i><?php echo $thread['message']; ?></i></td>
+		<td><i class="icon agreed"></i><?php echo $thread['agree_create_date_fmt']; ?></td>
 	</tr>
-	<? } ?>
+	<?php } ?>
 </table>
 
-<div class="page"><?=$pages?></div>
+<div class="page"><?php echo $pages; ?></div>
 
-<? include "./pc/view/my_footer.inc.htm"; ?>
+<?php include "./pc/view/my_footer.inc.htm"; ?>
 
 <script>
 $('#my_profile_menu').find('a').eq(3).class_active();

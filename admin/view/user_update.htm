@@ -1,21 +1,21 @@
 <?php include './admin/view/header.inc.htm'; ?>
 
 <div class="panel">
-	<div class="header">编辑用户-<?=$user['username']?></div>
+	<div class="header">编辑用户-<?php echo $user['username']; ?></div>
 	<div class="body">
-		<form method="POST" action="admin/user-update-<?=$uid?>.htm" id="form">
+		<form method="POST" action="admin/user-update-<?php echo $uid; ?>.htm" id="form">
 			<table class="form">
 				<tr style="display: none;">
 					<th>手机号：</th>
-					<td><input type="text" name="mobile" value="<?=$user['mobile']?>" /></td>
+					<td><input type="text" name="mobile" value="<?php echo $user['mobile']; ?>" /></td>
 				</tr>
 				<tr>
 					<th>Email：</th>
-					<td><input type="text" name="email" value="<?=$user['email']?>" /></td>
+					<td><input type="text" name="email" value="<?php echo $user['email']; ?>" /></td>
 				</tr>
 				<tr>
 					<th>用户名：</th>
-					<td><input type="text" name="username" value="<?=$user['username']?>" /></td>
+					<td><input type="text" name="username" value="<?php echo $user['username']; ?>" /></td>
 				</tr>
 				<tr>
 					<th>密码：</th>
@@ -26,31 +26,31 @@
 					<td>
 						<select name="gid">
 						<?php foreach($grouplist as $groupid=>$group) { ?>
-							<option value="<?=$groupid?>" <?php if($user['gid'] == $groupid){ echo 'selected';  } ?>><?=$group['name']?></option>
+							<option value="<?php echo $groupid; ?>" <?php if($user['gid'] == $groupid){ echo 'selected';  } ?>><?php echo $group['name']; ?></option>
 						<?php } ?>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<th>创建 IP：</th>
-					<td><?=$user['create_ip_fmt']?></td>
+					<td><?php echo $user['create_ip_fmt']; ?></td>
 				</tr>
 				<tr>
 					<th>创建日期：</th>
-					<td><?=$user['create_date_fmt']?></td>
+					<td><?php echo $user['create_date_fmt']; ?></td>
 				</tr>
 				<tr>
 					<th>最后登录 IP：</th>
-					<td><?=long2ip($user['login_ip_fmt'])?></td>
+					<td><?php echo long2ip($user['login_ip_fmt']); ?></td>
 				</tr>
 				<tr>
 					<th>最后登录时间：</th>
-					<td><?=$user['login_date_fmt']?></td>
+					<td><?php echo $user['login_date_fmt']; ?></td>
 					<td>&nbsp;</td>
 				</tr>
 				<tr>
 					<th>登录次数：</th>
-					<td width="250"><?=$user['logins']?></td>
+					<td width="250"><?php echo $user['logins']; ?></td>
 				</tr>
 				<tr>
 					<th>&nbsp;</th>

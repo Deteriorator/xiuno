@@ -1,4 +1,4 @@
-<? include "./install/view/header.inc.htm"; ?>
+<?php include "./install/view/header.inc.htm"; ?>
 
 <h3>三、检测 URL-Rewrite</h3>
 <p>URL-Rewrite 对 SEO 非常重要，需要您花一点耐心配置下您的 Web Server 的 URL-Rewrite</p>
@@ -16,7 +16,7 @@
 			<tr>
 				<td>Web-Server</td>
 				<td align="center">无</td>
-				<td align="center"><?=$webserver?></td>
+				<td align="center"><?php echo $webserver; ?></td>
 				<td align="center">
 					<div class="ok"><b class="icon check green"></b>通过</div>
 				</td>
@@ -37,7 +37,7 @@
 		<button type="submit" class="blue big" id="submit" loading-text="正在检测..." >下一步</button>
 	</p>
 </form>
-<? include "./install/view/footer.inc.htm"; ?>
+<?php include "./install/view/footer.inc.htm"; ?>
 
 <script>
 var jform = $('#form');

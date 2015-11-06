@@ -39,11 +39,13 @@ function get_env(&$env, &$write) {
 		$env['gd_version']['status'] = 2;
 	}
 	
+	/* PHP7 废弃
 	$env['php_short_open_tag']['name'] = 'PHP短标签';
 	$env['php_short_open_tag']['must'] = TRUE;
 	$env['php_short_open_tag']['current'] = ini_get('short_open_tag') ? '已开启' : '未开启';
 	$env['php_short_open_tag']['need'] = '开启';
 	$env['php_short_open_tag']['status'] = ini_get('short_open_tag') ? 1 : 0;
+	*/
 
 	// 如果sae直接跳过目录检测 因为这并没有什么卵用
 	if(IN_SAE) return true;

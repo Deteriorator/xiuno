@@ -1,8 +1,8 @@
 <?php include './admin/view/header.inc.htm'; ?>
 
-<? if(!$readable) { ?>
+<?php if(!$readable) { ?>
 <div class="notice error">配置文件 conf/conf.php 不可写，部分修改可能无法保存。</div>
-<? } ?>
+<?php } ?>
 
 <div class="panel">
 	<div class="header">IP 限制</div>
@@ -12,37 +12,37 @@
 				<tr>
 					<th style="width: 150px;">是否启用IP限制：</th>
 					<td>
-						<?=$input['ipaccess_on']?>
+						<?php echo $input['ipaccess_on']; ?>
 					</td>
 				</tr>
 				<tr>
 					<th>每日发送邮件数：</th>
 					<td>
-						<?=$input['ipaccess_mails']?>
+						<?php echo $input['ipaccess_mails']; ?>
 					</td>
 				</tr>
 				<tr>
 					<th>每日最大主题数：</th>
 					<td>
-						<?=$input['ipaccess_threads']?> 0 为不限制
+						<?php echo $input['ipaccess_threads']; ?> 0 为不限制
 					</td>
 				</tr>
 				<tr>
 					<th>每日最大回帖数：</th>
 					<td>
-						<?=$input['ipaccess_posts']?>
+						<?php echo $input['ipaccess_posts']; ?>
 					</td>
 				</tr>
 				<tr>
 					<th>每日最大附件数：</th>
 					<td>
-						<?=$input['ipaccess_attachs']?>
+						<?php echo $input['ipaccess_attachs']; ?>
 					</td>
 				</tr>
 				<tr>
 					<th>每日最大附件大小：</th>
 					<td>
-						<?=$input['ipaccess_attachsizes']?>
+						<?php echo $input['ipaccess_attachsizes']; ?>
 					</td>
 				</tr>
 				<tr>

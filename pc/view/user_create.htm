@@ -1,17 +1,17 @@
-<? include "./pc/view/header.inc.htm"; ?>
+<?php include "./pc/view/header.inc.htm"; ?>
 <div class="panel">
 	<div class="header">注册用户</div>
 	<div class="body">
 		<div style="width: 300px; margin: auto;">
 			<form method="POST" id="create_form" action="user-create.htm" class="form">
-				<input type="hidden" name="referer" value="<?=$referer?>" />
+				<input type="hidden" name="referer" value="<?php echo $referer; ?>" />
 				<p><input type="text" placeholder="Email" name="email" style="width: 100%;"></p>
-				<? if($conf['user_create_email_on']) { ?>
+				<?php if($conf['user_create_email_on']) { ?>
 				<p>
 					<input type="text" placeholder="验证码" name="verifycode" style="width: 120px;"> 
 					<button type="button" loading-text="正在发送..." class="grey" id="sendactive">获取邮件验证码</button> 
 				</p>
-				<? } ?>
+				<?php } ?>
 				<dl class="row margin">
 					<dt><button type="submit" loading-text="正在提交..." class="blue big" style="width: 150px;">下一步</button></dt>
 					<dd class="right"><a href="user-login.htm">登录</a></dd>
@@ -21,7 +21,7 @@
 	</div>
 </div>
 
-<? include "./pc/view/footer.inc.htm"; ?>
+<?php include "./pc/view/footer.inc.htm"; ?>
 
 <script>
 
@@ -30,7 +30,7 @@ var jemail = jform.find('input[name="email"]').focus();
 var jverifycode = jform.find('input[name="verifycode"]');
 var jsubmit = jform.find('button[type="submit"]');
 
-$.pdata('referer', '<?=$referer?>');
+$.pdata('referer', '<?php echo $referer; ?>');
 
 jform.off('submit').on('submit', function() {
 	jsubmit.button('loading');

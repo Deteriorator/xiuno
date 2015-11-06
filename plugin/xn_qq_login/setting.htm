@@ -8,25 +8,25 @@
 				<tr>
 					<th style="width: 150px;">是否开启 QQ 登陆：</th>
 					<td>
-						<?=$input['enable']?>
+						<?php echo $input['enable']; ?>
 					</td>
 				</tr>
 				<tr>
 					<th valign="top">META 标签：</th>
 					<td>
-						<?=$input['meta']?>
+						<?php echo $input['meta']; ?>
 					</td>
 				</tr>
 				<tr>
 					<th>APP ID：</th>
 					<td>
-						<?=$input['appid']?>
+						<?php echo $input['appid']; ?>
 					</td>
 				</tr>
 				<tr>
 					<th>APP Key：</th>
 					<td>
-						<?=$input['appkey']?>
+						<?php echo $input['appkey']; ?>
 					</td>
 				</tr>
 				<tr>
@@ -40,7 +40,7 @@
 	</div>
 </div>
 <p>申请地址：<a href="http://connect.qq.com/intro/login" target="_blank">http://connect.qq.com/intro/login</a></p>
-<p>回调地址：<?=http_url_path()?>qq_login.php</p>
+<p>回调地址：<?php echo http_url_path(); ?>qq_login.php</p>
 
 <?php include './admin/view/footer.inc.htm'; ?>
 <script>

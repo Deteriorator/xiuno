@@ -2,7 +2,7 @@
 
 <dl class="row margin">
 	<dt>
-		<select id="srchtype" value="<?=$srchtype?>">
+		<select id="srchtype" value="<?php echo $srchtype; ?>">
 			<option value="">搜索类型</option>
 			<option value="uid">用户 ID</option>
 			<option value="username">用户名</option>
@@ -12,7 +12,7 @@
 			<option value="create_ip">注册IP</option>
 		</select>
 	
-		<input type="text" id="keyword" placeholder="关键词" value="<?=$keyword?>" style="width: 200px;" />
+		<input type="text" id="keyword" placeholder="关键词" value="<?php echo $keyword; ?>" style="width: 200px;" />
 		<button id="search" class="blue">搜索</button>
 	</dt>
 	<dd class="right">
@@ -21,7 +21,7 @@
 </dl>
 
 <div class="panel">
-	<div class="header"><?=$header['title']?></div>
+	<div class="header"><?php echo $header['title']; ?></div>
 	<div class="body">
 		
 	<?php if(!$userlist) { ?>
@@ -43,18 +43,18 @@
 				<th>操作</th>
 			</tr>
 		<?php foreach($userlist as &$_user){ ?>
-			<tr uid="<?=$_user['uid']?>">
+			<tr uid="<?php echo $_user['uid']; ?>">
 				<td class="center"><input type="checkbox" name="delete" /></td>
-				<td><?=$_user['uid']?></td>
-				<!--<td><?=$_user['mobile']?></td>-->
-				<td><?=$_user['email']?></td>
-				<td><?=$_user['username']?></td>
-				<td><?=$_user['group']['name']?></td>
-				<td><?=$_user['create_date_fmt']?></td>
-				<td><?=$_user['create_ip_fmt']?></td>
-				<td><?=$_user['login_date_fmt']?></td>
-				<td><?=$_user['logins']?></td>
-				<td><a href="admin/user-update-<?=$_user['uid']?>.htm">编辑</a></td>
+				<td><?php echo $_user['uid']; ?></td>
+				<!--<td><?php echo $_user['mobile']; ?></td>-->
+				<td><?php echo $_user['email']; ?></td>
+				<td><?php echo $_user['username']; ?></td>
+				<td><?php echo $_user['group']['name']; ?></td>
+				<td><?php echo $_user['create_date_fmt']; ?></td>
+				<td><?php echo $_user['create_ip_fmt']; ?></td>
+				<td><?php echo $_user['login_date_fmt']; ?></td>
+				<td><?php echo $_user['logins']; ?></td>
+				<td><a href="admin/user-update-<?php echo $_user['uid']; ?>.htm">编辑</a></td>
 			</tr>
 		<?php } ?>
 		</table>
@@ -64,7 +64,7 @@
 				<button id="confirm" loading-text="正在提交" class="blue big">删除</button>
 			</dt>
 			<dd class="right">
-				<div class="page"><a>总共: <?=$n?></a><?=$pagehtml?></div>
+				<div class="page"><a>总共: <?php echo $n; ?></a><?php echo $pagehtml; ?></div>
 			</dd>
 		</dl>
 	<?php } ?>

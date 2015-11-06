@@ -1,38 +1,38 @@
 
-<? foreach($postlist as $_post) { ?>
-	<dl class="row vtop" pid="<?=$_post['pid']?>">
+<?php foreach($postlist as $_post) { ?>
+	<dl class="row vtop" pid="<?php echo $_post['pid']; ?>">
 		<dt>
-			<a href="<?=$_post['user_url']?>" target="_blank" class="author">
-				<img src="<?=$_post['user_avatar_url']?>" class="avatar" />
+			<a href="<?php echo $_post['user_url']; ?>" target="_blank" class="author">
+				<img src="<?php echo $_post['user_avatar_url']; ?>" class="avatar" />
 			</a>
 		</dt>
 		<dd>
 			<dl class="row">
 				<dt class="left small">
 					<b class="grey">
-						<a href="<?=$_post['user_url']?>"><?=$_post['username']?></a>
+						<a href="<?php echo $_post['user_url']; ?>"><?php echo $_post['username']; ?></a>
 					</b>　
-					<i class="grey"><?=$_post['create_date_fmt']?></i>
+					<i class="grey"><?php echo $_post['create_date_fmt']; ?></i>
 				</dt>
 				<dd class="right grey">
-					<span class="floor"><?=$_post['floor']?> 楼</span>
+					<span class="floor"><?php echo $_post['floor']; ?> 楼</span>
 					
-				<? if($allowupdate || $_post['allowupdate']) { ?>
-					<a href="post-update-<?=$_post['pid']?>.htm" title="编辑"><i class="icon edit"></i></a>
-				<? } ?>
+				<?php if($allowupdate || $_post['allowupdate']) { ?>
+					<a href="post-update-<?php echo $_post['pid']; ?>.htm" title="编辑"><i class="icon edit"></i></a>
+				<?php } ?>
 				
-				<? if($allowdelete || $_post['allowdelete']) { ?>
-					<a href="post-delete-<?=$_post['pid']?>.htm" class="delete" title="删除"><i class="icon trash-o"></i></a>
-				　<? } ?>
+				<?php if($allowdelete || $_post['allowdelete']) { ?>
+					<a href="post-delete-<?php echo $_post['pid']; ?>.htm" class="delete" title="删除"><i class="icon trash-o"></i></a>
+				　<?php } ?>
 
 					<i class="icon agree" title="赞同" tabindex="0" role="button"></i>
 					<i class="icon agreed" title="取消赞同" style="display: none;" tabindex="0" role="button"></i>
-					<a href="agree-list-<?=$_post['pid']?>.htm" class="ajax dialog agrees <?=$_post['agrees_class']?>" nofollow><?=$_post['agrees']?></a>
+					<a href="agree-list-<?php echo $_post['pid']; ?>.htm" class="ajax dialog agrees <?php echo $_post['agrees_class']; ?>" nofollow><?php echo $_post['agrees']; ?></a>
 				</dd>
 			</dl>
-			<div class="post" pid="<?=$_post['pid']?>">
-				<?=$_post['message']?> 
+			<div class="post" pid="<?php echo $_post['pid']; ?>">
+				<?php echo $_post['message']; ?> 
 			</div>
 		</dd>
 	</dl>
-<? } ?>
+<?php } ?>

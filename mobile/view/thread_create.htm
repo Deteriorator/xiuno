@@ -1,12 +1,12 @@
-<? include "./mobile/view/header.inc.htm"; ?>
+<?php include "./mobile/view/header.inc.htm"; ?>
 
 <form method="POST" id="thread_create_form" action="pc/thread-create.htm" class="form">
 	<p><span id="forum_select"></span></p>
 	<p><input type="text" placeholder="标题" name="subject" style="width: 100%;"></p>
 	<p><textarea id="message" name="message" placeholder="内容" style="width: 100%; height: 200px;"></textarea></p>
-	<? if($conf['seo_url_rewrite'] && $group['allowcustomurl']) { ?>
+	<?php if($conf['seo_url_rewrite'] && $group['allowcustomurl']) { ?>
 	<p><input type="text" placeholder="自定义 URL：just-like-this-why-sky-is-blue" name="seo_url" style="width: 100%;"></p>
-	<? } ?>
+	<?php } ?>
 	<dl class="row margin">
 		<dt>
 			<button type="submit" loading-text="正在提交..." class="big blue" style="width: 100%;">发帖</button>
@@ -18,10 +18,10 @@
 
 
 <script id="script_data">
-var fid = <?=$fid?>;// 当前激活的 fid
+var fid = <?php echo $fid; ?>;// 当前激活的 fid
 </script>
 
-<? include "./mobile/view/footer.inc.htm"; ?>
+<?php include "./mobile/view/footer.inc.htm"; ?>
 
 <link rel="stylesheet" type="text/css" href="xneditor/editor.css" />
 
@@ -33,7 +33,7 @@ var fid = <?=$fid?>;// 当前激活的 fid
 var jdialog = typeof arguments == 'undefined' ? null : arguments[0]; // 接受第一个参数
 var fid = window.fid;
 
-var editor = new $.XNEditor({textarea: 'message', image_upload_url:'post-upload-1.htm', image_upload_width: <?=$conf['upload_image_width']?>, file_upload_url:'post-upload-0.htm', in_mobile: 1});
+var editor = new $.XNEditor({textarea: 'message', image_upload_url:'post-upload-1.htm', image_upload_width: <?php echo $conf['upload_image_width']; ?>, file_upload_url:'post-upload-0.htm', in_mobile: 1});
 var jform = $('#thread_create_form');
 var jinput = jform.find('input');
 var jsubject = jinput.filter('[name="subject"]').focus();
@@ -43,7 +43,7 @@ var jsubmit = jform.find('button').filter('[type="submit"]');
 
 // 选择论坛
 var jforum_select = $('#forum_select');
-var forumarr = <?=$forumarr?>;
+var forumarr = <?php echo $forumarr; ?>;
 var s = '<select name="fid">'; 
 for(k in forumarr) s += '<option value="'+k+'">'+forumarr[k]+'</option>';
 s += '</select>';

@@ -1,19 +1,19 @@
 <?php include './admin/view/header.inc.htm'; ?>
 
 <div class="panel">
-	<div class="header"><?=$header['title']?></div>
+	<div class="header"><?php echo $header['title']; ?></div>
 	<div class="body">
-		<form method="POST" id="form" action="admin/forum-update-<?=$fid?>.htm">
+		<form method="POST" id="form" action="admin/forum-update-<?php echo $fid; ?>.htm">
 			<table class="form">
 				<tr>
 					<th>版块名称：</th>
 					<td>
-						<input type="text" name="name" value="<?=$forum['name']?>" style="width: 150px" placeholder="板块名称" />
+						<input type="text" name="name" value="<?php echo $forum['name']; ?>" style="width: 150px" placeholder="板块名称" />
 					</td>
 				</tr>
 				<tr>
 					<th>排序：</th>
-					<td><input type="text" name="rank" value="<?=$forum['rank']?>"style="width: 50px" placeholder="0" /> <i>倒序</i></td>
+					<td><input type="text" name="rank" value="<?php echo $forum['rank']; ?>"style="width: 50px" placeholder="0" /> <i>倒序</i></td>
 				</tr>
 				<!-- 预留
 				<tr>
@@ -25,21 +25,21 @@
 				-->
 				<tr>
 					<th>版块介绍：</th>
-					<td><textarea name="brief" id="brief" rows="3" style="width: 100%; max-width: 100%; height:200px"><?=$forum['brief']?></textarea></td>
+					<td><textarea name="brief" id="brief" rows="3" style="width: 100%; max-width: 100%; height:200px"><?php echo $forum['brief']; ?></textarea></td>
 				</tr>
 				<tr>
 					<th>SEO 标题：</th>
-					<td><input type="text" name="seo_title" value="<?=$forum['seo_title']?>" /></td>
+					<td><input type="text" name="seo_title" value="<?php echo $forum['seo_title']; ?>" /></td>
 				</tr>
 				<tr>
 					<th>SEO 关键词：</th>
-					<td><input type="text" name="seo_keywords" value="<?=$forum['seo_keywords']?>" /></td>
+					<td><input type="text" name="seo_keywords" value="<?php echo $forum['seo_keywords']; ?>" /></td>
 				</tr>
 				<tr>
 					<th valign="top">权限控制：<br><i>用户组 x 版块</i></th>
 					<td>
-						<p><label><input type="checkbox" name="accesson" id="accesson" value="1"<?=($forum['accesson'] ? ' checked' : '')?> />启用</label></p>
-						<table class="tborder maxwidth" id="accesslist" <?=($forum['accesson'] ? '' : 'style="display: none;"')?>>
+						<p><label><input type="checkbox" name="accesson" id="accesson" value="1"<?php echo ($forum['accesson'] ? ' checked' : ''); ?> />启用</label></p>
+						<table class="tborder maxwidth" id="accesslist" <?php echo ($forum['accesson'] ? '' : 'style="display: none;"'); ?>>
 							<tr align="center">
 								<th width="80">全选</th>
 								<th width="150">用户组</th>
@@ -49,17 +49,17 @@
 								<th width="100">赞</th>
 								<th width="100">下载</th>
 							</tr>
-							<? foreach ($accesslist as $group) { ?>
+							<?php foreach ($accesslist as $group) { ?>
 							<tr align="center">								
 								<td><input type="checkbox" name="checkall" /></td>
-								<td><?=$group['name']?></td>
-								<td><input type="checkbox" name="allowread[<?=$group['gid']?>]" value="1"<?=($group['allowread'] ? 'checked' : '')?> /></td>
-								<td><input type="checkbox" name="allowthread[<?=$group['gid']?>]" value="1"<?=($group['allowthread'] ? 'checked' : '')?> /></td>
-								<td><input type="checkbox" name="allowpost[<?=$group['gid']?>]" value="1"<?=($group['allowpost'] ? 'checked' : '')?> /></td>
-								<td><input type="checkbox" name="allowagree[<?=$group['gid']?>]" value="1"<?=($group['allowagree'] ? 'checked' : '')?> /></td>
-								<td><input type="checkbox" name="allowdown[<?=$group['gid']?>]" value="1"<?=($group['allowdown'] ? 'checked' : '')?> /></td>
+								<td><?php echo $group['name']; ?></td>
+								<td><input type="checkbox" name="allowread[<?php echo $group['gid']; ?>]" value="1"<?php echo ($group['allowread'] ? 'checked' : ''); ?> /></td>
+								<td><input type="checkbox" name="allowthread[<?php echo $group['gid']; ?>]" value="1"<?php echo ($group['allowthread'] ? 'checked' : ''); ?> /></td>
+								<td><input type="checkbox" name="allowpost[<?php echo $group['gid']; ?>]" value="1"<?php echo ($group['allowpost'] ? 'checked' : ''); ?> /></td>
+								<td><input type="checkbox" name="allowagree[<?php echo $group['gid']; ?>]" value="1"<?php echo ($group['allowagree'] ? 'checked' : ''); ?> /></td>
+								<td><input type="checkbox" name="allowdown[<?php echo $group['gid']; ?>]" value="1"<?php echo ($group['allowdown'] ? 'checked' : ''); ?> /></td>
 							</tr>
-							<? } ?>
+							<?php } ?>
 						</table>
 					
 					</td>
@@ -70,13 +70,13 @@
 				</tr>
 				<tr>
 					<th>版主ID：<br><i>多个逗号隔开</th>
-					<td><input type="text" name="moduids" value="<?=$forum['moduids']?>" /></td>
+					<td><input type="text" name="moduids" value="<?php echo $forum['moduids']; ?>" /></td>
 				</tr>
 				<tr>
 					<th>&nbsp;</th>
 					<td>
 						<button type="submit" id="submit" loading-text="正在提交" class="blue big">确定</button>
-						<a href="forum-<?=$fid?>.htm" target="_blank">查看版块</a>
+						<a href="forum-<?php echo $fid; ?>.htm" target="_blank">查看版块</a>
 					</td>
 				</tr>
 			</table>

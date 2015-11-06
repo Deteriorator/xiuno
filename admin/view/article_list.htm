@@ -5,10 +5,10 @@
 		<select name="cateid" id="cateid">
 			<option value="0">选择分类</option>
 			<?php foreach($conf['cate'] as $_cateid=>$catename) { ?>
-			<option value="<?=$_cateid?>" <?php if($_cateid == $cateid){ echo 'selected';  } ?>><?=$catename?></option>
+			<option value="<?php echo $_cateid; ?>" <?php if($_cateid == $cateid){ echo 'selected';  } ?>><?php echo $catename; ?></option>
 			<?php } ?>
 		</select>
-		<input type="text" id="keyword" placeholder="搜索标题" value="<?=$keyword?>" style="width: 200px;" />
+		<input type="text" id="keyword" placeholder="搜索标题" value="<?php echo $keyword; ?>" style="width: 200px;" />
 		<button id="search" class="blue">搜索</button>
 	</dt>
 	<dd class="right"><button id="create" class="blue">文章创建</button></dd>
@@ -21,7 +21,7 @@
 <?php }else{ ?>
 
 <div class="panel">
-	<div class="header"><?=$header['title']?></div>
+	<div class="header"><?php echo $header['title']; ?></div>
 	<div class="body">
 		<table class="tlist" width="100%" id="articlelist">
 			<tr>
@@ -33,14 +33,14 @@
 				<th>操作</th>
 			</tr>
 			<?php foreach($articlelist as &$article){ ?>
-			<tr articleid="<?=$article['articleid']?>">
+			<tr articleid="<?php echo $article['articleid']; ?>">
 				<td class="center"><input type="checkbox" name="delete" /></td>
-				<td><?=$article['articleid']?></td>
-				<td><a href="admin/article-read-<?=$article['articleid']?>.htm" target="_blank"><?=$article['subject']?></a></td>
-				<td><?=$article['catename']?></td>
-				<td><?=$article['create_date_fmt']?></td>
+				<td><?php echo $article['articleid']; ?></td>
+				<td><a href="admin/article-read-<?php echo $article['articleid']; ?>.htm" target="_blank"><?php echo $article['subject']; ?></a></td>
+				<td><?php echo $article['catename']; ?></td>
+				<td><?php echo $article['create_date_fmt']; ?></td>
 				<td>
-					<a href="admin/article-update-<?=$article['articleid']?>.htm" target="_blank">编辑</a>
+					<a href="admin/article-update-<?php echo $article['articleid']; ?>.htm" target="_blank">编辑</a>
 				</td>
 			</tr>
 			<?php } ?>
@@ -48,7 +48,7 @@
 		<p class="hr"></p>
 		<dl class="row">
 			<dd><button id="confirm" loading-text="正在提交..." class="blue big">删除</button></dd>
-			<dt class="right"><div class="page"><?=$pages?></div></dt>
+			<dt class="right"><div class="page"><?php echo $pages; ?></div></dt>
 		</dl>
 	</div>
 </div>

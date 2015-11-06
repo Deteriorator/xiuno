@@ -10,14 +10,14 @@
 				<th width="100">顺序(倒序)</th>
 				<th align="left">删除</th>
 			</tr>
-			<? foreach($friendlinklist as &$friendlink) { ?>
-			<tr align="center" linkid="<?=$friendlink['linkid']?>">
-				<td><input type="text" name="name" value="<?=$friendlink['name']?>" placeholder="站点名称" /></td>
-				<td><input type="text" name="url" value="<?=$friendlink['url']?>" placeholder="http://" style="width: 400px;" /></td>
-				<td><input type="text" name="rank" value="<?=$friendlink['rank']?>" style="width: 100px" placeholder="0" /></td>
-				<td align="left"><a href="admin/friendlink-delete-<?=$friendlink['linkid']?>.htm" class="delete">删除</a></td>
+			<?php foreach($friendlinklist as &$friendlink) { ?>
+			<tr align="center" linkid="<?php echo $friendlink['linkid']; ?>">
+				<td><input type="text" name="name" value="<?php echo $friendlink['name']; ?>" placeholder="站点名称" /></td>
+				<td><input type="text" name="url" value="<?php echo $friendlink['url']; ?>" placeholder="http://" style="width: 400px;" /></td>
+				<td><input type="text" name="rank" value="<?php echo $friendlink['rank']; ?>" style="width: 100px" placeholder="0" /></td>
+				<td align="left"><a href="admin/friendlink-delete-<?php echo $friendlink['linkid']; ?>.htm" class="delete">删除</a></td>
 			</tr>
-			<? } ?>
+			<?php } ?>
 		</table>
 		<p class="hr"></p>
 		<p class="margin"><button type="button" loading-text="正在提交..." id="submit" class="blue big" style="margin-left: 400px;" >确定</button></p>
@@ -28,7 +28,7 @@
 
 <script>
 
-var maxlinkid = <?=$maxlinkid?>;
+var maxlinkid = <?php echo $maxlinkid; ?>;
 var jtable = $('#table');
 var jsubmit = $("#submit");
 var jtrs = jtable.find('tr');

@@ -24,7 +24,7 @@ $user['gid'] != 1 AND message(-1, jump('需要管理员权限才能完成安装�
 
 
 //---------------> 第一处插入，按照关键词插入
-plugin_install_before('./pc/view/thread.htm', '<?=$first[\'message\']?>', file_get_contents('./plugin/xn_ad/ad_1.htm'));
+plugin_install_before('./pc/view/thread.htm', '<?php echo $first[\'message\']; ?>', file_get_contents('./plugin/xn_ad/ad_1.htm'));
 
 //---------------> 第二处插入，按照偏移量插入。
 plugin_install_unshift('./pc/view/footer_debug.inc.htm', file_get_contents('./plugin/xn_ad/ad_2.htm'));

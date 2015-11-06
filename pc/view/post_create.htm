@@ -1,21 +1,21 @@
-<? include "./pc/view/header.inc.htm"; ?>
+<?php include "./pc/view/header.inc.htm"; ?>
 
 <div class="panel_body margin">
 	<dl class="row vtop" id="post_create_dl">
 		<dt>
-			<img src="<?=$user['avatar_url']?>" class="avatar" />
+			<img src="<?php echo $user['avatar_url']; ?>" class="avatar" />
 		</dd>
 		<dd>
 			<dl class="row">
 				<dt class="left small">
-					<b class="light"><?=$user['username']?></b>　
-					<i class="light"><?=$user['create_date_fmt']?></i>
+					<b class="light"><?php echo $user['username']; ?></b>　
+					<i class="light"><?php echo $user['create_date_fmt']; ?></i>
 				</dt>
 				<dd class="right">
 				</dd>
 			</dl>
 			<div class="post">
-				<form method="POST" id="post_create_form" action="post-create-<?=$tid?>.htm" class="form margin">
+				<form method="POST" id="post_create_form" action="post-create-<?php echo $tid; ?>.htm" class="form margin">
 					<div><textarea id="post_message" name="message" placeholder="内容" style="width: 100%; height: 300px;"></textarea></div>
 					<dl class="row margin">
 						<dt>
@@ -30,7 +30,7 @@
 	</dl>
 </div>
 
-<? include "./pc/view/footer.inc.htm"; ?>
+<?php include "./pc/view/footer.inc.htm"; ?>
 
 <link rel="stylesheet" type="text/css" href="xneditor/editor.css" />
 
@@ -41,14 +41,14 @@
 
 //setInterval(function() {
 
-var editor = new $.XNEditor({textarea: 'post_message', image_upload_url:'post-upload-1.htm', image_upload_width: (<?=$conf['upload_image_width']?> - 40), file_upload_url:'post-upload-0.htm'});
+var editor = new $.XNEditor({textarea: 'post_message', image_upload_url:'post-upload-1.htm', image_upload_width: (<?php echo $conf['upload_image_width']; ?> - 40), file_upload_url:'post-upload-0.htm'});
 
 var jform = $('#post_create_form');
 var jinput = jform.find('input');
 var jmessage = $('#post_message');
 var jsubmit = jform.find('button').filter('[type="button"]');
 
-var tid = <?=$tid?>;
+var tid = <?php echo $tid; ?>;
 
 jsubmit.off('click').on('click', function() {
 	

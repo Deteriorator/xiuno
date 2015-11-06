@@ -1,9 +1,9 @@
-<? include "./pc/view/header.inc.htm"; ?>
+<?php include "./pc/view/header.inc.htm"; ?>
 
 <div class="ajax_body">
 	<div style="width: 400px; margin: auto;">
-		<form method="POST" id="mod_top_form" action="mod-top-<?=$tids?>.htm" class="form">
-			<p>选中：<b><?=count($tidarr)?></b> 篇</p>
+		<form method="POST" id="mod_top_form" action="mod-top-<?php echo $tids; ?>.htm" class="form">
+			<p>选中：<b><?php echo count($tidarr); ?></b> 篇</p>
 			<p>
 				置顶：<label><input type="radio" name="top" value="0">取消</label> &nbsp;  &nbsp;
 				<label><input type="radio" name="top" value="1"><i class="icon top top_1"></i>板块</label> &nbsp;  &nbsp;
@@ -16,7 +16,7 @@
 	</div>
 </div>
 
-<? include "./pc/view/footer.inc.htm"; ?>
+<?php include "./pc/view/footer.inc.htm"; ?>
 
 <script>
 
@@ -26,7 +26,7 @@ var jdialog = typeof arguments == 'undefined' ? null : arguments[0]; // 接受�
 var jform = $('#mod_top_form');
 var jsubmit = jform.find('button[type="submit"]');
 
-jform.find('input[name="top"]').checked(<?=$thread['top']?>);
+jform.find('input[name="top"]').checked(<?php echo $thread['top']; ?>);
 
 //jform.off('submit').on('submit', function() {
 jsubmit.off('click').on('click', function() {

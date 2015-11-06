@@ -1,4 +1,4 @@
-<? include "./pc/view/header.inc.htm"; ?>
+<?php include "./pc/view/header.inc.htm"; ?>
 
 <div class="panel">
 	<div class="header">用户登录</div>
@@ -9,14 +9,14 @@
 				<p><input type="password" placeholder="密码" name="password" style="width: 100%;"></p>
 				<dl class="row margin">
 					<dt><button type="submit" loading-text="正在登录..." class="blue big" style="width: 150px;">登录</button></dt>
-					<dd class="right"><a href="user-create.htm">注册</a><? if($conf['user_find_pw_on']) { ?> &nbsp;|&nbsp; <a href="user-findpw.htm">找回密码</a><? } ?></dd>
+					<dd class="right"><a href="user-create.htm">注册</a><?php if($conf['user_find_pw_on']) { ?> &nbsp;|&nbsp; <a href="user-findpw.htm">找回密码</a><?php } ?></dd>
 				</dl>			
 			</form>
 		</div>
 	</div>
 </div>
 
-<? include "./pc/view/footer.inc.htm"; ?>
+<?php include "./pc/view/footer.inc.htm"; ?>
 
 <script>
 

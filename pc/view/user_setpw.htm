@@ -1,11 +1,11 @@
-<? include "./pc/view/header.inc.htm"; ?>
+<?php include "./pc/view/header.inc.htm"; ?>
 
 <div class="panel">
 	<div class="header">设置密码</div>
 	<div class="body">
 		<div style="width: 300px; margin: auto;">
 			<form method="POST" id="form" action="user-setpw.htm" class="form">
-				<p><?=$email?></p>
+				<p><?php echo $email; ?></p>
 				<p><input type="password" placeholder="新密码" name="password" style="width: 100%;"></p>
 				<p><input type="password" placeholder="重复密码" name="password2" style="width: 100%;"></p>
 				<dl class="row margin">
@@ -16,7 +16,7 @@
 	</div>
 </div>
 
-<? include "./pc/view/footer.inc.htm"; ?>
+<?php include "./pc/view/footer.inc.htm"; ?>
 
 <script>
 

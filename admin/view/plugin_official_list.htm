@@ -4,31 +4,31 @@
 	<div class="header">插件列表</div>
 	<div class="body">
 		<table class="tlist">
-			<? foreach($pluginlist as $dir=>$plugin) { ?>
-			<tr valign="top" dir="<?=$dir?>">
-				<td width="54"><a href="admin/plugin-read-<?=$dir?>.htm" target="_blank"><img src="<?=$plugin['icon_url']?>" width="54" height="54" /></a></td>
+			<?php foreach($pluginlist as $dir=>$plugin) { ?>
+			<tr valign="top" dir="<?php echo $dir; ?>">
+				<td width="54"><a href="admin/plugin-read-<?php echo $dir; ?>.htm" target="_blank"><img src="<?php echo $plugin['icon_url']; ?>" width="54" height="54" /></a></td>
 				<td width="200">
-					<a href="admin/plugin-read-<?=$dir?>.htm"><b><?=$plugin['name']?> </b></a>v<?=$plugin['version']?>
-					<br /><span class="small"><?=$dir?></span>
+					<a href="admin/plugin-read-<?php echo $dir; ?>.htm"><b><?php echo $plugin['name']; ?> </b></a>v<?php echo $plugin['version']; ?>
+					<br /><span class="small"><?php echo $dir; ?></span>
 				</td>
 				<td>
-					<p class="grey"><?=$plugin['brief']?></p>
+					<p class="grey"><?php echo $plugin['brief']; ?></p>
 				</td>
 				<td width="400" align="right">
-					<button class="small blue plugin_download_button <?=($plugin['downloaded'] ? 'disabled' : '')?>" <?=($plugin['downloaded'] ? ' style="display: none"' : '')?>>下载</button>
+					<button class="small blue plugin_download_button <?php echo ($plugin['downloaded'] ? 'disabled' : ''); ?>" <?php echo ($plugin['downloaded'] ? ' style="display: none"' : ''); ?>>下载</button>
 					
-					<? if(!empty($plugin['setting_url'])) { ?>
-					<button class="small grey plugin_setting_button <?=(!$plugin['installed'] ? 'disabled' : '')?>" onclick="window.location='<?=$plugin['setting_url']?>'"<?=(!$plugin['downloaded'] ? ' style="display: none"' : '')?>>设置</button> 　　　
-					<? } ?>
-					<button class="small blue plugin_install_button <?=($plugin['installed'] || !$plugin['downloaded'] ? 'disabled' : '')?>" <?=(!$plugin['downloaded'] ? ' style="display: none"' : '')?>>安装</button> 　
-					<button class="small red plugin_unstall_button <?=(!$plugin['installed'] || !$plugin['downloaded'] ? 'disabled' : '')?>" <?=(!$plugin['downloaded'] ? ' style="display: none"' : '')?>>卸载</button>
+					<?php if(!empty($plugin['setting_url'])) { ?>
+					<button class="small grey plugin_setting_button <?php echo (!$plugin['installed'] ? 'disabled' : ''); ?>" onclick="window.location='<?php echo $plugin['setting_url']; ?>'"<?php echo (!$plugin['downloaded'] ? ' style="display: none"' : ''); ?>>设置</button> 　　　
+					<?php } ?>
+					<button class="small blue plugin_install_button <?php echo ($plugin['installed'] || !$plugin['downloaded'] ? 'disabled' : ''); ?>" <?php echo (!$plugin['downloaded'] ? ' style="display: none"' : ''); ?>>安装</button> 　
+					<button class="small red plugin_unstall_button <?php echo (!$plugin['installed'] || !$plugin['downloaded'] ? 'disabled' : ''); ?>" <?php echo (!$plugin['downloaded'] ? ' style="display: none"' : ''); ?>>卸载</button>
 				</td>
 			</tr>
-			<? } ?>
+			<?php } ?>
 		</table>
 	</div>
 </div>
-<p class="page"><?=$pages?></p>
+<p class="page"><?php echo $pages; ?></p>
 
 <?include './admin/view/footer.inc.htm';?>
 

@@ -6,62 +6,62 @@
 		<table class="form">
 			<tr>
 				<td>插件图标：</td>
-				<td><img src="<?=$plugin['icon_url']?>" width="54" height="54" /></td>
+				<td><img src="<?php echo $plugin['icon_url']; ?>" width="54" height="54" /></td>
 			</tr>
 			<tr>
 				<td>插件名：</td>
-				<td><?=$plugin['name']?> v<?=$plugin['version']?></td>
+				<td><?php echo $plugin['name']; ?> v<?php echo $plugin['version']; ?></td>
 			</tr>
 			<tr>
 				<td>要求 BBS 最低版本：</td>
-				<td>v<?=$plugin['bbs_version']?></td>
+				<td>v<?php echo $plugin['bbs_version']; ?></td>
 			</tr>
 			<tr>
 				<td>目录：</td>
-				<td><?=$dir?></td>
+				<td><?php echo $dir; ?></td>
 			</tr>
-		<? if(!empty($plugin['username'])) { ?>
+		<?php if(!empty($plugin['username'])) { ?>
 			<tr>
 				<td>作者：</td>
-				<td><?=$plugin['username']?></td>
+				<td><?php echo $plugin['username']; ?></td>
 			</tr>
-		<? } ?>
-		<? if(!empty($plugin['email'])) { ?>
+		<?php } ?>
+		<?php if(!empty($plugin['email'])) { ?>
 			<tr>
 				<td>Email：</td>
-				<td><?=$plugin['email']?></td>
+				<td><?php echo $plugin['email']; ?></td>
 			</tr>
-		<? } ?>
+		<?php } ?>
 			<tr>
 				<td>介绍：</td>
-				<td><?=$plugin['brief']?></td>
+				<td><?php echo $plugin['brief']; ?></td>
 			</tr>
-		<? if($plugin['is_official']) { ?>
+		<?php if($plugin['is_official']) { ?>
 			<tr>
 				<td>价格：</td>
-				<td><?=$plugin['price']?></td>
+				<td><?php echo $plugin['price']; ?></td>
 			</tr>
 			<tr>
 				<td>用户评级：</td>
-				<td><?=$plugin['stars_fmt']?></td>
+				<td><?php echo $plugin['stars_fmt']; ?></td>
 			</tr>
 			<tr>
 				<td>官方评级：</td>
-				<td><?=$plugin['user_stars_fmt']?></td>
+				<td><?php echo $plugin['user_stars_fmt']; ?></td>
 			</tr>
 			<tr>
 				<td>安装次数：</td>
-				<td><?=$plugin['installs']?></td>
+				<td><?php echo $plugin['installs']; ?></td>
 			</tr>
 			<tr>
 				<td>销售次数：</td>
-				<td><?=$plugin['sells']?></td>
+				<td><?php echo $plugin['sells']; ?></td>
 			</tr>
 			<tr>
 				<td>通过官方认证：</td>
-				<td><? if($plugin['is_cert']) { ?><span class="green bold">通过</span><? } else { ?><span class="red bold">未通过</span><? } ?></td>
+				<td><?php if($plugin['is_cert']) { ?><span class="green bold">通过</span><?php } else { ?><span class="red bold">未通过</span><?php } ?></td>
 			</tr>
-		<? } ?>	
+		<?php } ?>	
 		<tr>
 			<td></td>
 			<td>
@@ -76,7 +76,7 @@
 <?include './admin/view/footer.inc.htm';?>
 
 <script>
-var dir = '<?=$dir?>';
+var dir = '<?php echo $dir; ?>';
 $('#plugin_install_button').on('click', function() {
 	$.xget('plugin/'+dir+'/install.php', function(code, message) {
 		if(code == 0) {
@@ -99,10 +99,10 @@ $('#plugin_unstall_button').on('click', function() {
 		}
 	});
 });
-<? if($plugin['installed']) { ?>
+<?php if($plugin['installed']) { ?>
 $('#plugin_install_button').button('disabled');
-<? } else { ?>
+<?php } else { ?>
 $('#plugin_unstall_button').button('disabled');
-<? } ?>
+<?php } ?>
 
 </script>

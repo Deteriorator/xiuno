@@ -24,7 +24,7 @@ $user['gid'] != 1 AND message(-1, jump('需要管理员权限才能完成卸载�
 
 
 // 第一处卸载
-plugin_unstall_before('./pc/view/thread.htm', '<?=$first[\'message\']?>', file_get_contents('./plugin/xn_ad/ad_1.htm'));
+plugin_unstall_before('./pc/view/thread.htm', '<?php echo $first[\'message\']; ?>', file_get_contents('./plugin/xn_ad/ad_1.htm'));
 
 // 第二处卸载
 plugin_install_remove('./pc/view/footer_debug.inc.htm', file_get_contents('./plugin/xn_ad/ad_2.htm'));

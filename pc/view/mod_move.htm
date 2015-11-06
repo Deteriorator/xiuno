@@ -1,16 +1,16 @@
-<? include "./pc/view/header.inc.htm"; ?>
+<?php include "./pc/view/header.inc.htm"; ?>
 
 <div class="ajax_body">
 	<div style="width: 300px; margin: auto;">
-		<form method="POST" id="mod_move_form" action="mod-move-<?=$tids?>.htm" class="form">
-			<p>选中：<b><?=count($tidarr)?></b> 篇</p>
+		<form method="POST" id="mod_move_form" action="mod-move-<?php echo $tids; ?>.htm" class="form">
+			<p>选中：<b><?php echo count($tidarr); ?></b> 篇</p>
 			<p>
 				移动到：
 				<label>
 					<select name="newfid">
-						<? foreach ($forumlist as $forum) { ?>
-						<option value="<?=$forum['fid']?>"><?=$forum['name']?></option>	
-						<? } ?>
+						<?php foreach ($forumlist as $forum) { ?>
+						<option value="<?php echo $forum['fid']; ?>"><?php echo $forum['name']; ?></option>	
+						<?php } ?>
 					</select>
 				</label>
 			</p>
@@ -21,7 +21,7 @@
 	</div>
 </div>
 
-<? include "./pc/view/footer.inc.htm"; ?>
+<?php include "./pc/view/footer.inc.htm"; ?>
 
 <script>
 
@@ -31,7 +31,7 @@ var jdialog = typeof arguments == 'undefined' ? null : arguments[0]; // 接受�
 var jform = $('#mod_move_form');
 var jsubmit = jform.find('button[type="submit"]');
 var newfid = jform.find('select[name="newfid"]');
-newfid.checked(<?=$thread['fid']?>);
+newfid.checked(<?php echo $thread['fid']; ?>);
 
 //jform.off('submit').on('submit', function() {
 jsubmit.off('click').on('click', function() {

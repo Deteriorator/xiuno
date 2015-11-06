@@ -24,7 +24,7 @@ function friendlink_delete($linkid) {
 	return $r;
 }
 
-function friendlink_find($cond = array(), $orderby = array(), $page = 1, $pagesize = 1000) {
+function friendlink_find($cond = array(), $orderby = array('rank'=>-1), $page = 1, $pagesize = 1000) {
 	$cond = cond_to_sqladd($cond);
 	$orderby = orderby_to_sqladd($orderby);
 	$offset = ($page - 1) * $pagesize;

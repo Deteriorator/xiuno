@@ -1,8 +1,8 @@
 <?php include './admin/view/header.inc.htm'; ?>
 					
-<? if(!$readable) { ?>
+<?php if(!$readable) { ?>
 <div class="notice error margin">配置文件 conf/smtp.conf.php 不可写，部分修改可能无法保存。</div>
-<? } ?>
+<?php } ?>
 
 <form action="admin/smtp-setting.htm" method="post" id="smtp_setting">
 	<div class="panel">
@@ -11,11 +11,11 @@
 			<table>
 				<tr>
 					<th width="300" align="left">注册是否需要 Email 验证</th>
-					<td><?=$input_user_create_email_on?></td>
+					<td><?php echo $input_user_create_email_on; ?></td>
 				</tr>
 				<tr>
 					<th width="300" align="left">注册开启密码找回</th>
-					<td><?=$input_user_find_pw_on?> <i></i></td>
+					<td><?php echo $input_user_find_pw_on; ?> <i></i></td>
 				</tr>
 				<tr>
 					<th>&nbsp;</th>
@@ -40,16 +40,16 @@
 				<th width="150">密码</th>
 				<th align="left">删除</th>
 			</tr>
-			<? foreach($smtplist as $smtpid=>$smtp) { ?>
-			<tr align="center" smtpid="<?=$smtpid?>">
-				<td><input type="text" name="email" value="<?=$smtp['email']?>" placeholder="Email" /></td>
-				<td><input type="text" name="host" value="<?=$smtp['host']?>" placeholder="" style="width: 200px;" /></td>
-				<td><input type="text" name="port" value="<?=$smtp['port']?>" style="width: 60px" placeholder="" /></td>
-				<td><input type="text" name="user" value="<?=$smtp['user']?>" style="width: 150px" placeholder="" /></td>
-				<td><input type="text" name="pass" value="<?=$smtp['pass']?>" style="width: 150px" placeholder="" /></td>
-				<td align="left"><a href="admin/smtp-delete-<?=$smtpid?>.htm" class="delete">删除</a></td>
+			<?php foreach($smtplist as $smtpid=>$smtp) { ?>
+			<tr align="center" smtpid="<?php echo $smtpid; ?>">
+				<td><input type="text" name="email" value="<?php echo $smtp['email']; ?>" placeholder="Email" /></td>
+				<td><input type="text" name="host" value="<?php echo $smtp['host']; ?>" placeholder="" style="width: 200px;" /></td>
+				<td><input type="text" name="port" value="<?php echo $smtp['port']; ?>" style="width: 60px" placeholder="" /></td>
+				<td><input type="text" name="user" value="<?php echo $smtp['user']; ?>" style="width: 150px" placeholder="" /></td>
+				<td><input type="text" name="pass" value="<?php echo $smtp['pass']; ?>" style="width: 150px" placeholder="" /></td>
+				<td align="left"><a href="admin/smtp-delete-<?php echo $smtpid; ?>.htm" class="delete">删除</a></td>
 			</tr>
-			<? } ?>
+			<?php } ?>
 		</table>
 		<p class="hr"></p>
 		<p class="margin"><button type="button" loading-text="正在提交..." id="submit" class="blue big" style="margin-left: 400px;" >确定</button></p>
@@ -60,7 +60,7 @@
 
 <script>
 
-var maxid = <?=$maxid?>;
+var maxid = <?php echo $maxid; ?>;
 var jtable = $('#table');
 var jsubmit = $("#submit");
 var jtrs = jtable.find('tr');

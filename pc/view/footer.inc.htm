@@ -9,13 +9,13 @@
 				Powered by <a href="http://bbs.xiuno.com/" target="_blank"><b>Xiuno BBS</b> <b class="blue">3.0	</a></b>
 			</dt>
 			<dd class="right">
-				当前时间：<?=date('Y-n-j H:i')?> | <a href="mobile/" target="_blank"><b>手机版</b></a><br>
+				当前时间：<?php echo date('Y-n-j H:i'); ?> | <a href="mobile/" target="_blank"><b>手机版</b></a><br>
 				Process:<?php echo substr(microtime(1) - $starttime, 0, 7);?>s, 
-				Memory: <?=humansize(memory_get_usage())?>,
-				Cache: <?=($conf['cache']['enable'] ? $conf['cache']['type'] : 'Off')?>
+				Memory: <?php echo humansize(memory_get_usage()); ?>,
+				Cache: <?php echo ($conf['cache']['enable'] ? $conf['cache']['type'] : 'Off'); ?>
 			</dd>
 		</dl>
-		<? include './pc/view/footer_debug.inc.htm'; ?>
+		<?php include './pc/view/footer_debug.inc.htm'; ?>
 	</div>
 </div>
 
@@ -23,16 +23,16 @@
 
 <script id="script_data">
 // 全局的数据
-var fid = <?=$fid?>;					// 当前激活的 fid
-var forumlist = <?=xn_json_encode(empty($forumlist_show) ? '{}' : $forumlist_show)?>; 	// 板块数据，包含 new_tids
-var new_thread_days = <?=$conf['new_thread_days']?>;
+var fid = <?php echo $fid; ?>;					// 当前激活的 fid
+var forumlist = <?php echo xn_json_encode(empty($forumlist_show) ? '{}' : $forumlist_show); ?>; 	// 板块数据，包含 new_tids
+var new_thread_days = <?php echo $conf['new_thread_days']; ?>;
 </script>
 
-<? if($browser['name'] == 'ie' && $browser['version'] < 10) { ?>
-<script src="xiunoui/<?=(DEBUG ? 'jquery-1.11.1.js' : 'jquery-1.11.1.min.js')?>"></script>
-<? } else { ?>
+<?php if($browser['name'] == 'ie' && $browser['version'] < 10) { ?>
+<script src="xiunoui/<?php echo (DEBUG ? 'jquery-1.11.1.js' : 'jquery-1.11.1.min.js'); ?>"></script>
+<?php } else { ?>
 <script src="xiunoui/zepto.js"></script>
-<? } ?>
+<?php } ?>
 <script src="xiunoui/xiuno.js"></script>
 <script src="xiunoui/dialog.js"></script>
 <script src="xiunoui/md5.js"></script>
@@ -42,7 +42,7 @@ var new_thread_days = <?=$conf['new_thread_days']?>;
 
 <script>render_forumlist();</script>
 
-<?=(empty($setting['footer_code']) ? '' : $setting['footer_code'])?>
+<?php echo (empty($setting['footer_code']) ? '' : $setting['footer_code']); ?>
 
 </body>
 </html>

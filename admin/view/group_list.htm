@@ -13,17 +13,17 @@
 				<th  width="100" align="left">编辑</th>
 				<th align="left">删除</th>
 			</tr>
-			<? foreach($grouplist as &$group) { ?>
-			<tr align="center" gid="<?=$group['gid']?>">
-				<td><input type="text" name="gid" value="<?=$group['gid']?>" style="width: 60px" placeholder="用户组ID" /></td>
-				<td align="left"><input type="text" name="name" value="<?=$group['name']?>" placeholder="用户组名称" /></td>
-				<td><input type="text" name="agreesfrom" value="<?=$group['agreesfrom']?>" style="width: 100px" placeholder="0" /></td>
-				<td><input type="text" name="agreesto" value="<?=$group['agreesto']?>" style="width: 100px" placeholder="0" /></td>
-				<td><input type="text" name="maxagrees" value="<?=$group['maxagrees']?>" style="width: 100px" placeholder="0" /></td>
-				<td align="left"><a href="admin/group-update-<?=$group['gid']?>.htm" class="update">编辑</a></td>
-				<td align="left"><? if($group['gid'] > 101) { ?><a href="admin/group-delete-<?=$group['gid']?>.htm" class="delete">删除</a><? } ?></td>
+			<?php foreach($grouplist as &$group) { ?>
+			<tr align="center" gid="<?php echo $group['gid']; ?>">
+				<td><input type="text" name="gid" value="<?php echo $group['gid']; ?>" style="width: 60px" placeholder="用户组ID" /></td>
+				<td align="left"><input type="text" name="name" value="<?php echo $group['name']; ?>" placeholder="用户组名称" /></td>
+				<td><input type="text" name="agreesfrom" value="<?php echo $group['agreesfrom']; ?>" style="width: 100px" placeholder="0" /></td>
+				<td><input type="text" name="agreesto" value="<?php echo $group['agreesto']; ?>" style="width: 100px" placeholder="0" /></td>
+				<td><input type="text" name="maxagrees" value="<?php echo $group['maxagrees']; ?>" style="width: 100px" placeholder="0" /></td>
+				<td align="left"><a href="admin/group-update-<?php echo $group['gid']; ?>.htm" class="update">编辑</a></td>
+				<td align="left"><?php if($group['gid'] > 101) { ?><a href="admin/group-delete-<?php echo $group['gid']; ?>.htm" class="delete">删除</a><?php } ?></td>
 			</tr>
-			<? } ?>
+			<?php } ?>
 		</table>
 		<p class="hr"></p>
 		<p class="margin"><button type="button" loading-text="正在提交..." id="submit" class="blue big" style="margin-left: 300px;" >确定</button></p>
@@ -34,7 +34,7 @@
 
 <script>
 
-var maxgid = <?=$maxgid?>;
+var maxgid = <?php echo $maxgid; ?>;
 var maxgid2 = maxgid;
 var jtable = $('#table');
 var jsubmit = $("#submit");
