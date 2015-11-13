@@ -653,7 +653,7 @@ $.XNEditor = function(args) {
 		return true;
 	});
 	
-	jbody.on('keyup', function(e) {
+	jbody.on('keyup input', function(e) {
 		_this.history(true); // 纪录到历史
 	});
 	

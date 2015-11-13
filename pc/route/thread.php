@@ -166,6 +166,10 @@ if($action == 'create') {
 	$header['navs'][] = "<a href=\"forum-$fid.htm\">$forum[name]</a>";
 	$header['navs'][] = "<a href=\"thread-$tid.htm\">$thread[subject]</a>";
 	
+	if(!$group['allowviewip']) {
+		unset($thread['userip']);
+		unset($thread['sid']);
+	}
 	include './pc/view/thread.htm';
 	
 }

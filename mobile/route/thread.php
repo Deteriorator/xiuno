@@ -83,6 +83,11 @@ if($action == 'create') {
 	
 	thread_inc_views($tid); // 如果是大站，可以用单独的点击服务，减少 db 压力
 	
+	if(!$group['allowviewip']) {
+		unset($thread['userip']);
+		unset($thread['sid']);
+	}
+	
 	include './mobile/view/thread.htm';
 }
 

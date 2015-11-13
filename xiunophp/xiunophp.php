@@ -1232,7 +1232,7 @@ function init_query_string() {
 	
 	// 是否开启 /user/login 这种格式的 URL
 	if(defined('URL_REWRITE_PATH_FORMAT_ON')) {
-		$r += init_query_string_by_path_formt($_SERVER['REQUEST_URI']);
+		$r = init_query_string_by_path_formt($_SERVER['REQUEST_URI']) + $r;
 	}
 	
 	isset($r[0]) AND $r[0] == 'index.php' AND $r[0] = 'index';

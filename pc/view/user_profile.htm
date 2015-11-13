@@ -97,7 +97,7 @@ var jsubmit = $('#user_delete_<?php echo $_uid; ?>');
 jsubmit.off('click').on('click', function() {
 	if(window.confirm('确定删除用户吗？')) {
 		// 这里可能需要调用多次才能彻底删除用户。考虑超时。
-		$.xpost('pc/mod-deleteuser-<?php echo $_uid; ?>.htm', function(code, message) {
+		$.xpost('mod-deleteuser-<?php echo $_uid; ?>.htm', function(code, message) {
 			if(code == 0) {
 				jsubmit.button(message);
 				setTimeout(function() {window.location.reload();}, 500);
@@ -114,7 +114,7 @@ var jbansubmit = $('#user_banip_<?php echo $_ip_url; ?>');
 var jday = $('#day_<?php echo $_ip_url; ?>');
 jbansubmit.off('click').on('click', function() {
 	// 这里可能需要调用多次才能彻底删除用户。考虑超时。
-	$.xpost('pc/mod-banip-<?php echo $_ip_url; ?>-'+xn_urlencode(jday.val())+'.htm', function(code, message) {
+	$.xpost('mod-banip-<?php echo $_ip_url; ?>-'+xn_urlencode(jday.val())+'.htm', function(code, message) {
 		if(code == 0) {
 			jbansubmit.button(message);
 			setTimeout(function() {window.location.reload();}, 500);

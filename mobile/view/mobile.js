@@ -143,7 +143,7 @@ function post_list_script(fid) {
 		var jagrees = jthis.siblings('a.agrees');
 		var jagree = jline.find('i.agree');
 		var jagreed = jline.find('i.agreed');
-		$.xpost('pc/agree-update-'+pid+'.htm', function(code, message) {
+		$.xpost('agree-update-'+pid+'.htm', function(code, message) {
 			if(code == 0) {
 				jagree.hide();jagreed.show();
 				jagrees.text(intval(jagrees.text()) + 1);

@@ -73,7 +73,7 @@ function post_create($arr, $fid) {
 
 // 编辑回帖
 function post_update($pid, $arr, $tid = 0) {
-	global $conf;
+	global $conf, $user;
 	$post = post__read($pid);
 	if(empty($post)) return FALSE;
 	$tid = $post['tid'];
@@ -88,7 +88,7 @@ function post_update($pid, $arr, $tid = 0) {
 	if(isset($arr['message']) AND $arr['message'] != $post['message']) {
 		// 更新附件数
 		$oldlist = attach_find_by_pid($pid);
-		$newlist = attach_find_just_upload($uid);
+		$newlist = attach_find_just_upload($user['uid']);
 		$attachlist = array_merge($oldlist, $newlist);
 		foreach($attachlist as $k=>$attach) {
 			$url = $conf['upload_url'].'attach/'.$attach['filename'];
