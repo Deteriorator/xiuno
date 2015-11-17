@@ -23,9 +23,6 @@
 				<?php if($allowdelete || $first['allowdelete']) { ?>
 					<a href="post-delete-<?php echo $first['pid']; ?>.htm" class="delete" title="删除"><i class="icon trash-o"></i></a>
 				　<?php } ?>
-					<i class="icon agree" title="赞同" tabindex="0" role="button"></i>
-					<i class="icon agreed" title="取消赞同" style="display: none;" tabindex="0" role="button"></i>
-					<a href="mobile/agree-list-<?php echo $first['pid']; ?>.htm" class="ajax dialog nocache icon agrees <?php echo $thread['agrees_class']; ?>" dialog='{"modal":false,"position":4}' ><?php echo $first['agrees']; ?></a>
 				</dd>
 			</dl>
 		</dd>
@@ -33,20 +30,11 @@
 	<div id="thread_post" class="thread_post" pid="<?php echo $thread['firstpid']; ?>">
 		<?php echo $first['message']; ?>
 	</div>
-	
-<?php if($thread['posts'] > 0) { ?>
 
 	<div id="postlist_title">
 		<span class="active grey" style="cursor:pointer">回复</span> 
 		<span id="posts" class="posts <?php echo $thread['posts_class']; ?>"><?php echo $thread['posts']; ?></span> &nbsp; 
-		<span class="grey" style="cursor:pointer">只看赞同</span> 
 	</div>
-	
-<?php } else {?>
-
-	<div id="postlist_title" style="border: 0px;"></div>
-	
-<?php } ?>
 	
 	<div id="postlist">
 		<?php include './mobile/view/post_list_body.inc.htm';?>

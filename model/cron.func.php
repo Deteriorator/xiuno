@@ -53,7 +53,7 @@ function cron_run($force = 0) {
 			// 清空每日 IP 限制
 			ipaccess_truncate();
 			
-			// 清理游客赞同限制
+			// 清理游客喜欢限制
 			guest_agree_truncate();
 			
 			list($y, $n, $d) = explode(' ', date('Y n j', $time)); 	// 0 点

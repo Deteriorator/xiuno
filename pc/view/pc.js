@@ -124,7 +124,7 @@ function post_list_script(fid) {
 	var myagreelist = $.pdata('myagreelist');
 	if(!myagreelist) myagreelist = {};
 	
-	// 如果是非游客，初始化赞的状态显示
+	// 如果是非游客，初始化喜欢的状态显示
 	if(!empty(myagreelist)) {
 		jpostlist.find('dl[pid]').add('#firstpost').each(function() {
 			var jline = $(this);
@@ -182,7 +182,8 @@ function post_list_script(fid) {
 		});
 		return false;
 	});
-	// 赞
+	
+	// 喜欢
 	jpostlist.add('#firstpost').on('click', 'i.agree,i.agreed', function() {
 		var jthis = $(this);
 		var href = jthis.attr('href');
@@ -207,13 +208,15 @@ function post_list_script(fid) {
 			}
 		});
 		return false;
-	})
+	});
+	
 	if(!window.allowpost) {
 		jmessage.attr('readonly', 'readonly').attr('placeholder', '您无权在此版块发帖');
 		jsubmit.button('disabled');
 	}
 	
-	// 看全部回复/只看赞同的切换
+	// 看全部回复/只看喜欢的切换
+	/*
 	var postlist_title = $('#postlist_title');
 	var jspans = postlist_title.son('span');
 	jspans.eq(0).on('click', function() {
@@ -236,13 +239,15 @@ function post_list_script(fid) {
 			}
 		});
 	});
+	*/
 	
 	jsubmit.on('click', function() {
 	//jform.on('submit', function() {
 		var jform = $('#quick_post_form');
 		var jsubmit = jform.find('button[type="submit"]');
 		
-		// 自动点赞
+		// 自动点喜欢
+		/*
 		var pid = $('#firstpost').attr('pid');
 		var jagreelabel = $('#agree_thread_label');
 		if(myagreelist[pid]) {
@@ -251,6 +256,7 @@ function post_list_script(fid) {
 			var r = jagreelabel.find('input[name="agree"]').checked();
 			if(r == '1') $('#firstpost').find('i.agree').trigger('click');
 		}
+		*/
 		
 		jsubmit.button('loading');
 		var postdata = jform.serialize();
@@ -298,11 +304,13 @@ function post_list_script(fid) {
 	});
 	
 	// 楼层
+	/*
 	jpostlist.find('dl[pid]').each(function() {
 		var jthis = $(this);
 		jthis.on('mouseover', function() {jthis.find('span.floor').fadeIn(); });
 		jthis.on('mouseout', function() {jthis.find('span.floor').fadeOut(); });
 	});
+	*/
 }
 
 

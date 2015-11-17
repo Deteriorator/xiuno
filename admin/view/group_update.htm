@@ -14,15 +14,15 @@
 					<td><input type="text" name="name" value="<?php echo $group['name']; ?>" style="width: 150px;" /></td>
 				</tr>
 				<tr>
-					<th>起始赞数+发帖数：</th>
+					<th>起始喜欢数+发帖数：</th>
 					<td><input type="text" name="agreesfrom" value="<?php echo $group['agreesfrom']; ?>"style="width: 150px;"  /></td>
 				</tr>
 				<tr>
-					<th>结束赞数+发帖数：</th>
+					<th>结束喜欢数+发帖数：</th>
 					<td><input type="text" name="agreesto" value="<?php echo $group['agreesto']; ?>"style="width: 150px;"  /></td>
 				</tr>
 				<tr>
-					<th>每日最大赞数：</th>
+					<th>每日最大喜欢数：</th>
 					<td><input type="text" name="maxagrees" value="<?php echo $group['maxagrees']; ?>"style="width: 150px;"  /><?php if($gid == 0) { ?>游客将按照 IP 进行限制<?php } ?></td>
 				</tr>
 				<tr>
@@ -35,7 +35,7 @@
 								<td>回帖</td>
 								<td>上传</td>
 								<td>下载</td>
-								<td>赞同</td>
+								<td>喜欢</td>
 								<td>自定义URL</td>
 								<?php if($group['gid'] >= 1 AND $group['gid'] <= 5) { ?>
 								<td title="版主权限"><b>置顶</b></td>

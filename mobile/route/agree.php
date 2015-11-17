@@ -29,7 +29,7 @@ if($action == 'list') {
 	// 只提取前 100 个用户，过多用户展示无意义。
 	$agreelist = post_agree_find_by_pid($pid, 1, 100);
 	
-	$header['title'] = '赞过的用户：'.$post['agrees'].'人';
+	$header['title'] = '喜欢过的用户：'.$post['agrees'].'人';
 	
 	include './mobile/view/agree_list.htm';
 	

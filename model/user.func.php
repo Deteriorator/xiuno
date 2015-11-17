@@ -223,7 +223,7 @@ function user_login_check($user) {
 	return $user;
 }
 
-// 根据赞同数来调整用户组
+// 根据喜欢数来调整用户组
 function user_update_group($uid) {
 	global $conf, $grouplist;
 	$user = user_read_cache($uid);

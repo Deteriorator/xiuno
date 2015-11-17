@@ -207,7 +207,7 @@ if($action == 'login') {
 	user_ajax_info($user);
 	message(0, $user);
 
-// 用户发表的赞同
+// 用户发表的喜欢
 } elseif($action == 'agree') {
 
 	$_uid = param(2, 0);

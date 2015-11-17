@@ -15,6 +15,7 @@
 // $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Windows NT 5.1; rv:15.0) Gecko/20100101 Firefox/15.0.1';
 // $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/4.0; Maxthon; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C)';
 // $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)';
+// $_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.<OS build number>';
 // $_COOKIE['bbs_sid'] = '5588c68700b8d';
 // $_COOKIE['bbs_token'] = 'Ndh_2FySTsF4oWsGsh2y7ywcJRhI_2FqXEHw3G1aH8_2FnSzvOyXW79A5Xat_2F0qclUSnKi6CSW_2FHWh2mPEKpS00wZxfwaBS0tTNMxAjj_2b3FTzwR3I_3d';
 

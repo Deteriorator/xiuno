@@ -134,7 +134,8 @@ function post_list_script(fid) {
 		});
 		return false;
 	});
-	// 赞
+	// 喜欢
+	
 	jpostlist.add('#firstpost').on('click', 'i.agree,i.agreed', function() {
 		var jthis = $(this);
 		var href = jthis.attr('href');
@@ -159,13 +160,15 @@ function post_list_script(fid) {
 			}
 		});
 		return false;
-	})
+	});
+	
 	if(!window.allowpost) {
 		jmessage.attr('readonly', 'readonly').attr('placeholder', '您无权在此版块发帖');
 		jsubmit.button('disabled');
 	}
 	
-	// 看全部回复/只看赞同的切换
+	// 看全部回复/只看喜欢的切换
+	/*
 	var postlist_title = $('#postlist_title');
 	var jspans = postlist_title.son('span');
 	jspans.eq(0).on('click', function() {
@@ -188,6 +191,7 @@ function post_list_script(fid) {
 			}
 		});
 	});
+	*/
 	
 	jform.on('submit', function() {
 	//jsubmit.on('click', function() {

@@ -22,8 +22,8 @@
 				<?php if($allowdelete || $first['allowdelete']) { ?>
 					<a href="post-delete-<?php echo $first['pid']; ?>.htm" class="delete" title="删除"><i class="icon trash-o"></i></a>
 				　<?php } ?>
-					<i class="icon agree" title="赞同" tabindex="0" role="button"></i>
-					<i class="icon agreed" title="取消赞同" style="display: none;" tabindex="0" role="button"></i>
+					<i class="icon agree" title="喜欢" tabindex="0" role="button"></i>
+					<i class="icon agreed" title="取消喜欢" style="display: none;" tabindex="0" role="button"></i>
 					<a href="agree-list-<?php echo $first['pid']; ?>.htm" class="ajax dialog nocache icon agrees <?php echo $thread['agrees_class']; ?>" dialog='{"modal":false,"position":4}' nofollow><?php echo $first['agrees']; ?></a>
 				</dd>
 			</dl>
@@ -48,19 +48,11 @@
 		<?php } ?>
 	</div>
 	
-<?php if($thread['posts'] > 0) { ?>
 
 	<div id="postlist_title">
 		<span class="active grey" style="cursor:pointer">回复</span> 
 		<span id="posts" class="posts <?php echo $thread['posts_class']; ?>"><?php echo $thread['posts']; ?></span> &nbsp; 
-		<span class="grey" style="cursor:pointer">只看赞同</span> 
 	</div>
-	
-<?php } else {?>
-
-	<div id="postlist_title" style="border: 0px;"></div>
-	
-<?php } ?>
 	
 	<div id="postlist">
 		<?php include './pc/view/post_list_body.inc.htm';?>
@@ -86,8 +78,6 @@
 						<dt class="vbottom">
 							
 							<button type="submit" loading-text="正在提交..." class="grey small">回帖</button>
-							　
-							<label class="grey small" id="agree_thread_label"><input type="checkbox" name="agree" value="1" /><i class="icon agreed" style="display:none;"></i>赞同楼主</label>
 							
 						</dt>
 						<dd class="right">

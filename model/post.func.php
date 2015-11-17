@@ -142,7 +142,7 @@ function post_delete($pid) {
 	
 	!$post['isfirst'] AND runtime_set('posts-', 1);
 	
-	// 清理赞同
+	// 清理喜欢
 	$uid AND myagree_delete($uid, $pid, $post['isfirst']);
 	
 	// 清理缓存

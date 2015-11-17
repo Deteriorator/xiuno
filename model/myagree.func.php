@@ -126,11 +126,11 @@ function agree_update($touid, $pid, $tid, $fid, $isfirst) {
 	
 	//user_login_check($user);
 	
-	if(!forum_access_user($fid, $gid, 'allowagree')) return xn_error(10, '您（'.$user['groupname'].'）无权限在此版块点赞');
+	if(!forum_access_user($fid, $gid, 'allowagree')) return xn_error(10, '您（'.$user['groupname'].'）无权限在此版块点喜欢');
 	
 	if($uid > 0) {
 		
-		// 每日最大赞数限制
+		// 每日最大喜欢数限制
 		if($time - $user['last_agree_date'] > 86400) {
 			user__update($uid, array('last_agree_date'=>$time));
 			$user['today_agrees'] = 0;
@@ -138,46 +138,46 @@ function agree_update($touid, $pid, $tid, $fid, $isfirst) {
 		$user['last_agree_date'] = $time;
 		$user['today_agrees']++;
 		if($user['today_agrees'] > $group['maxagrees']) {
-			return xn_error(-1, '请您休息会，您所在的用户组每日最大赞数为：'.$group['maxagrees']);
+			return xn_error(-1, '请您休息会，您所在的用户组每日最大喜欢数为：'.$group['maxagrees']);
 		}
 		
 		$agree = myagree_read($pid, $uid);
 		if($agree) {
-			// 取消赞
+			// 取消喜欢
 			$r = myagree_delete($uid, $pid, $isfirst);
-			if($r ===  FALSE) return xn_error(2, '取消赞失败');
+			if($r ===  FALSE) return xn_error(2, '取消喜欢失败');
 			
 			thread_tids_cache_delete_by_order($fid, 'agree');
-			return xn_error(1, '取消赞成功'); // 1 表示取消赞，前台会根据此项判断减1
+			return xn_error(1, '取消喜欢成功'); // 1 表示取喜欢喜欢，前台会根据此项判断减1
 		}  else {
-			// 点击赞
+			// 点击喜欢
 			$r = myagree_create($uid, $touid, $pid, $tid, $isfirst);
-			if($r ===  FALSE) return xn_error(2, '点赞失败');
+			if($r ===  FALSE) return xn_error(2, '点喜欢失败');
 			
 			thread_tids_cache_delete_by_order($fid, 'agree');
-			return xn_error(0, '点赞成功');
+			return xn_error(0, '点喜欢成功');
 		}
 	} else {
 		// ip 限制
 		$n = guest_agree_count_by_ip($longip);
 		if($n > $group['maxagrees']) {
-			return xn_error(-1, '请您休息会，您所在的用户组每日最大赞数为：'.$group['maxagrees']);
+			return xn_error(-1, '请您休息会，您所在的用户组每日最大喜欢数为：'.$group['maxagrees']);
 		}
 		
 		// sid 限制
 		$agree = guest_agree_read($sid, $pid);
 		if($agree) {
-			// 取消赞
+			// 取消喜欢
 			$r = guest_agree_delete($sid, $pid, $touid, ($isfirst ? $tid : 0));
-			if($r ===  FALSE) return xn_error(2, '取消赞失败');
+			if($r ===  FALSE) return xn_error(2, '取消喜欢失败');
 			thread_tids_cache_delete_by_order($fid, 'agree');
-			return xn_error(1, '取消赞成功'); // 1 表示取消赞，前台会根据此项判断减1
+			return xn_error(1, '取消喜欢成功'); // 1 表示取消喜欢，前台会根据此项判断减1
 		} else {
-			// 点击赞
+			// 点击喜欢
 			$r = guest_agree_create($sid, $longip, $pid, $touid, ($isfirst ? $tid : 0));
-			if($r ===  FALSE) return xn_error(2, '点赞失败');
+			if($r ===  FALSE) return xn_error(2, '点喜欢失败');
 			thread_tids_cache_delete_by_order($fid, 'agree');
-			return xn_error(0, '点赞成功');
+			return xn_error(0, '点喜欢成功');
 		}
 	}
 }

@@ -231,7 +231,7 @@ function thread_find($cond = array(), $orderby = array(), $page = 1, $pagesize =
 }
 
 // $order: tid/lastpid/agrees
-// 按照: 发帖时间/最后回复时间/赞数 倒序
+// 按照: 发帖时间/最后回复时间/喜欢数 倒序
 function thread_find_by_fid($fid, $page = 1, $pagesize = 20, $order = 'tid') {
 	global $conf, $forumlist;
 	$key = "forum_tids_{$order}_$fid";

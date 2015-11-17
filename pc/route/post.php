@@ -72,7 +72,7 @@ if($action == 'create') {
 		$pid = post_create($post, $fid);
 		empty($pid) AND message(1, '创建帖子失败');
 		
-		// 赞同，不通过服务端，客户端 ajax 发起请求更简洁
+		// 喜欢，不通过服务端，客户端 ajax 发起请求更简洁
 		//if($agree) {
 		//	$r = agree_update($thread['uid'], $thread['firstpid'], $tid, $fid, 1);
 		//}
@@ -197,7 +197,7 @@ if($action == 'create') {
 	!$allowdelete AND !$post['allowdelete'] AND message(-1, '无权删除该帖');
 	
 	if($isfirst) {
-		// 清除所有的回复。赞。还有相关资源
+		// 清除所有的回复。喜欢。还有相关资源
 		thread_delete($tid);
 	} else {
 		post_delete($pid);

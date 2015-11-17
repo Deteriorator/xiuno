@@ -15,7 +15,6 @@
 					<i class="grey"><?php echo $_post['create_date_fmt']; ?></i>
 				</dt>
 				<dd class="right grey">
-					<span class="floor"><?php echo $_post['floor']; ?> 楼</span>
 					
 				<?php if($allowupdate || $_post['allowupdate']) { ?>
 					<a href="mobile/post-update-<?php echo $_post['pid']; ?>.htm" title="编辑"><i class="icon edit"></i></a>
@@ -24,10 +23,9 @@
 				<?php if($allowdelete || $_post['allowdelete']) { ?>
 					<a href="post-delete-<?php echo $_post['pid']; ?>.htm" class="delete" title="删除"><i class="icon trash-o"></i></a>
 				　<?php } ?>
+				　
+				　	<span class="floor"><?php echo $_post['floor']; ?></span>
 
-					<i class="icon agree" title="赞同" tabindex="0" role="button"></i>
-					<i class="icon agreed" title="取消赞同" style="display: none;" tabindex="0" role="button"></i>
-					<a href="mobile/agree-list-<?php echo $_post['pid']; ?>.htm" class="ajax dialog agrees <?php echo $_post['agrees_class']; ?>"><?php echo $_post['agrees']; ?></a>
 				</dd>
 			</dl>
 			<div class="post" pid="<?php echo $_post['pid']; ?>">

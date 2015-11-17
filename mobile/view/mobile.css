@@ -74,8 +74,8 @@ div.post img, div.thread_post img {max-width: 100%; height: auto;}
 p.subject {margin-top: 0px; font-size: 16px;}
 .posts {display: inline-block; background: #A3A0B5; color: #FFFFFF; padding: 2px 4px 3px 4px; border-radius: 4px; line-height: 1.0}
 
-.icon.agree:before { content: "\f087"; font-size: 18px;}
-.icon.agreed:before { content: "\f164"; font-size: 18px; }
+.icon.agree:before { content: "\f08a"; font-size: 18px;}
+.icon.agreed:before { content: "\f004"; font-size: 18px; }
 .icon.top:before { content: "\f091"; font-size: 16px;}
 .icon.top_1 { color: #FF8800; }
 .icon.top_2 { color: #FF8800; }
@@ -125,8 +125,7 @@ span.agrees:hover, a.agrees:hover {background: #00CC11; color: #FFFFFF;}
 
 /* 滚回顶部 */
 #scroll_top {width:55px; height:55px; position:fixed; bottom:95px; right: 20px; display:none; cursor:pointer; background: url(../../static/scroll_top.png); background-size: cover;}
-
-span.floor {margin-right: 20px; }
+span.floor {color: #CCCCCC; padding: 2px 5px; background: #F1F1F1; border-radius: 10px; font-size: 9px; line-height: 9px;}
 i.icon.delete {padding: 0px;}
 i.icon.edit {padding: 0px;}
 

@@ -402,6 +402,7 @@ CREATE TABLE bbs_friendlink (
   PRIMARY KEY (linkid),
   KEY (`type`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+INSERT INTO bbs_friendlink SET `name`='Xiuno BBS', url='http://bbs.xiuno.com/';
         
 # 持久的 key value 数据存储, ttserver, mysql
 DROP TABLE IF EXISTS bbs_kv;
