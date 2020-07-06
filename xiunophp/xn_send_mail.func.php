@@ -1824,7 +1824,8 @@ class PHPMailer {
     $eol = "\r\n";
     $escape = '=';
     $output = '';
-    while( list(, $line) = each($lines) ) {
+    //while( list(, $line) = each($lines) ) {
+    foreach ($lines as $line) {
       $linlen = strlen($line);
       $newline = '';
       for($i = 0; $i < $linlen; $i++) {
@@ -2668,6 +2669,8 @@ class SMTP {
     }
 
     // connect to the smtp server
+    $errno = 0;
+    $errstr = '';
     $this->smtp_conn = @fsockopen($host,    // the host of the server
                                  $port,    // the port to use
                                  $errno,   // error number if any
@@ -2928,7 +2931,8 @@ class SMTP {
 
     $max_line_length = 998; // used below; set here for ease in change
 
-    while(list(,$line) = @each($lines)) {
+    foreach ($lines as $line) {
+    //while(list(,$line) = @each($lines)) {
       $lines_out = null;
       if($line == "" && $in_headers) {
         $in_headers = false;
@@ -2957,7 +2961,8 @@ class SMTP {
       $lines_out[] = $line;
 
       // send the lines to the server
-      while(list(,$line_out) = @each($lines_out)) {
+      foreach ($lines_out as $line_out) {
+     // while(list(,$line_out) = @each($lines_out)) {
         if(strlen($line_out) > 0)
         {
           if(substr($line_out, 0, 1) == ".") {
@@ -3383,7 +3388,7 @@ function xn_send_mail($smtp, $username, $email, $subject, $message, $charset = '
 	$mail->Password   = $smtp['pass'];        // SMTP account password
 	$mail->Timeout    = 5;	// 
 	$mail->CharSet    = $charset;
-	
+  // $mail->SMTPSecure = "ssl"; // ssl tls
 	$mail->Encoding   = 'base64';
 	
 	//$subject = $charset == 'UTF-8' ? iconv('UTF-8', 'GBK', $subject) : $subject;
@@ -3408,4 +3413,14 @@ function xn_send_mail($smtp, $username, $email, $subject, $message, $charset = '
 		return TRUE;
 	}
 }
+
+/*
+$smtp = array('host'=>'smtp.sina.com', 'port'=>25, 'user'=>'axiuno@sina.com', 'pass'=>'xxxx');
+$username = 'zhangsan';
+$email = 'axiuno@gmail.com';
+$subject = 'test';
+$message = 'test';
+xn_send_mail($smtp, $username, $email, $subject, $message);
+*/
+
 ?>

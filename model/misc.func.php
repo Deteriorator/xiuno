@@ -1,238 +1,284 @@
 <?php
 
-// 过滤关键词，如果返回 FALSE，则包含敏感词，不允许发。
-function badword_filter($s, &$badword) {
-	global $conf;
-	if(!$conf['badword_on'] || !$s) return $s;
-	
-	static $badwords = NULL;
-	if($badwords === NULL) $badwords = (array)kv_get('badwords');
-	foreach($badwords as $k=>$v) {
-		if(strpos($s, $k) !== FALSE) {
-			if(isset($v)) {
-				$badword = $k;
-				if($v == '#') return FALSE;
-				$s = str_replace($k, $v, $s);
-			} else {
-				$s = str_replace($k, '', $s);
-			}
-		}
-	}
-	return $s;
-}
+// hook model_misc_start.php
 
-function badword_implode($glue1, $glue2, $arr) {
-	if(empty($arr)) return '';
-	$s = '';
-	foreach($arr as $k=>$v) {
-		$s .= ($s ? $glue2 : '').$k.($v ? $glue1.$v : '');
-	}
-	return $s;
-}
-
-// 对 key-value 数组进行组合
-function badword_explode($sep1, $sep2, $s) {
-	$arr = $arr2 = $arr3 = array();
-	$arr = explode($sep2, $s);
-	foreach($arr as $v) {
-		$arr2 = explode($sep1, $v);
-		$arr3[$arr2[0]] = (isset($arr2[1]) ? $arr2[1] : '');
-	}
-	return $arr3;
-}
-
-// 谨慎的保存配置文件，先备份，再保存。
-function conf_save() {
-	global $conf, $time;
-	$file = './conf/conf.php';
-	$backfile = './conf/conf-'.date('Y-n-j', $time).'.php';
-	
-	$s = "<?php\r\nreturn ".var_export($conf,true).";\r\n?>";
-	// 备份文件，如果备份失败，则直接返回
-	$r = copy($file, $backfile);
-	if(!$r) return FALSE;
-	$r = file_put_contents($file, $s, LOCK_EX); // 独占锁，防止并发写乱
-	if(!$r) {
-		copy($backfile, $file); // 还原
-		return FALSE;
-	}
-	// 大致校验是否写入成功
-	$s = file_get_content_try($file);
-	if(substr(trim($s), -2) != '?>') {
-		copy($backfile, $file); // 还原
-		return FALSE;
-	}
-	return TRUE;
-}
-
-// 变量的方式
-function conf_set($k, $v, $save = TRUE) {
-	global $conf;
-	$conf[$k] = $v;
-	return $save ? conf_save() : TRUE;
-}
-
-// 正则的方式修改配置文件，容易被写入 web shell
-/*function conf_set($k, $v, $conffile = './conf/conf.php') {
-	$s = file_get_contents($conffile);
-	$sep = "\n";
-	$s = str_replace("\r\n", $sep, $s);
-	$arr = explode($sep, trim($s));
-	
-	foreach($arr as $line=>&$s) {
-		$s = preg_replace('#\''.preg_quote($k).'\'\s*=\>\s*\'.*?\',#ism', "'$k' => '$v',", $s);
-		$s = preg_replace('#\''.preg_quote($k).'\'\s*=\>\s*\d+\s*,#ism', "'$k' => $v,", $s);
-	}
-	
-	$s = implode($sep, $arr);
-	return file_put_contents($conffile, $s, LOCK_EX);
-}*/
-
-// 正则的方式修改配置文件，不害怕 web shell 写入
-function json_conf_set($k, $v, $conffile = './conf.json') {
-	$s = file_get_contents($conffile);
-	$sep = "\n";
-	$s = str_replace("\r\n", $sep, $s);
-	$arr = explode($sep, trim($s));
-	
-	$k2 = preg_quote($k);
-	foreach($arr as $line=>&$s) {
-		$s = preg_replace('#"'.$k2.'"\s*:\s*".*?"#ism', "\"$k\" : \"$v\"", $s);
-		$s = preg_replace('#"'.$k2.'"\s*:\s*\d+\s*#ism', "\"$k\" : $v", $s);
-	}
-	
-	$s = implode($sep, $arr);
-	return file_put_contents($conffile, $s, LOCK_EX);
-}
-
-// 正则的方式修改多行
-/*
-function conf_mset($replacearr, $start = FALSE, $end = FALSE, $conffile = './conf/conf.php') {
-	$s = file_get_contents($conffile);
-	$sep = "\n";
-	$s = str_replace("\r\n", $sep, $s);
-	$arr = explode($sep, trim($s));
-	
-	foreach($arr as $line=>&$s) {
-		if($start !== FALSE && !($line >= $start && $line <= $end)) continue;
-		foreach ($replacearr as $k=>$v) {
-			$s = preg_replace('#\''.preg_quote($k).'\'\s*=\>\s*\'.*?\',#ism', "'$k' => '$v',", $s);
-			$s = preg_replace('#\''.preg_quote($k).'\'\s*=\>\s*\d+\s*,#ism', "'$k' => $v,", $s);
-		}
-	}
-	
-	$s = implode($sep, $arr);
-	return file_put_contents($conffile, $s);
-}
-*/
 
 /*
-$s = file_get_contents($conffile);
-$s = conf_replace($s, array('sitename'=>$sitename, 'runlevel'=>$runlevel));
-file_put_contents($conffile, $s);
+	url("thread-create-1.htm");
+	根据 $conf['url_rewrite_on'] 设置，返回以下四种格式：
+	?thread-create-1.htm
+	thread-create-1.htm
+	?/thread/create/1
+	/thread/create/1
 */
-/*
-function conf_replace($s, $replacearr) {
-	// 从16行-33行，正则替换
+function url($url, $extra = array()) {
+	$conf = _SERVER('conf');
+	!isset($conf['url_rewrite_on']) AND $conf['url_rewrite_on'] = 0;
 	
-	$sep = "\n";
-	$s = str_replace("\r\n", $sep, $s);
-	$arr = explode($sep, trim($s));
+	// hook model_url_start.php
 	
-	foreach($arr as &$s) {
-		foreach($replacearr as $k=>$v) {
-			$s = preg_replace('#\''.preg_quote($k).'\'\s*=\>\s*\'.*?\',#ism', "'$k' => '$v',", $s);
-			$s = preg_replace('#\''.preg_quote($k).'\'\s*=\>\s*\d+\s*,#ism', "'$k' => $v,", $s);
-		}
+	$r = $path = $query = '';
+	if(strpos($url, '/') !== FALSE) {
+		$path = substr($url, 0, strrpos($url, '/') + 1);
+		$query = substr($url, strrpos($url, '/') + 1);
+	} else {
+		$path = '';
+		$query = $url;
 	}
 	
-	$s = implode($sep, $arr);
-	return $s;
-}
-*/
-
-/*
-function str_line_replace($s, $startline, $endline, $replacearr) {
-	// 从16行-33行，正则替换
-	empty($startline) AND $startline = 1;
-	$sep = "\n";
-	$s = str_replace("\r\n", $sep, $s);
-	$arr = explode($sep, trim($s));
-	$arr1 = array_slice($arr, 0, $startline - 1); // 此处: startline - 1 为长度
-	$endline > count($arr)  AND $endline = count($arr);
-	$arr2 = array_slice($arr, $startline - 1, $endline - $startline + 1); // 此处: startline - 1 为偏移量
-	$arr3 = array_slice($arr, $endline);
+	if($conf['url_rewrite_on'] == 0) {
+		$r = $path . '?' . $query . '.htm';
+	} elseif($conf['url_rewrite_on'] == 1) {
+		$r = $path . $query . '.htm';
+	} elseif($conf['url_rewrite_on'] == 2) {
+		$r = $path . '?' . str_replace('-', '/', $query);
+	} elseif($conf['url_rewrite_on'] == 3) {
+		$r = $path . str_replace('-', '/', $query);
+	}
+	// 附加参数
+	if($extra) {
+		$args = http_build_query($extra);
+		$sep = strpos($r, '?') === FALSE ? '?' : '&';
+		$r .= $sep.$args;
+	}
 	
-	foreach($arr2 as &$s) {
-		foreach($replacearr as $k=>$v) {
-			$s = preg_replace('#\''.preg_quote($k).'\'\s*=\>\s*\'.*?\',(\s+)#ism', "'$k' => '$v',\${1}", $s);
-			$s = preg_replace('#\''.preg_quote($k).'\'\s*=\>\s*\d+\s*,(\s+)#ism', "'$k' => $v,\${1}", $s);
-		}
-	}
-	$arr = $arr1 + $arr2 + $arr3;
-	$s = implode($sep, $arr);
-	return $s;
+	// hook model_url_end.php
+	
+	return $r;
 }
-*/
 
-
-/* index.php 需要的函数 */
-// 自定义 URL，类似于：http://bbs.xiuno.com/why-sky-is-blue
-function parse_seo_url() {
-	global $conf;
-	// 支持 seo url rewrite
-	$tid = 0;
-	$thread = array();
-	$seo_url = '';
-	if($conf['seo_url_rewrite']) {
-		$url = $_SERVER['REQUEST_URI'];
-		$lastpos = strrpos($url, '/');
-		$qmark = strpos($url, '?');
-		$qmark = $qmark === FALSE ? strlen($url) : $qmark - 1;
-		$tid = 0;
-		$url2 = substr($url, $lastpos + 1, $qmark);
-		if(preg_match('#^[\w\-]+$#', $url2)) {
-			$seo_url = $url2;
-			$thread = thread_read_by_seo_url($seo_url);
-			$tid = empty($thread) ?  -1 : $thread['tid'];
-			$_REQUEST[0] = 'thread';
-			$_REQUEST[1] = $tid;
-			return array($tid, $thread);
-		}
-	}
-	return array($tid, $thread);
-}
 
 // 检测站点的运行级别
 function check_runlevel() {
 	global $conf, $method, $gid;
-	$is_user_action = (param(0) == 'user');
+	
+	$rules = array(
+		'user'=>array('login', 'create', 'logout', 'sendinitpw', 'resetpw', 'resetpw_sendcode', 'resetpw_complete', 'synlogin')
+	);
+	
+	// hook model_check_runlevel_start.php
+	
+	if($gid == 1) return;
+	$param0 = param(0);
+	$param1 = param(1);
+	foreach ($rules as $route=>$actions) {
+		if($param0 == $route && (empty($actions) || in_array($param1, $actions))) {
+			return;
+		}
+	}
+	
 	switch ($conf['runlevel']) {
 		case 0: message(-1, $conf['runlevel_reason']); break;
-		case 1: $gid != 1 AND message(-1, $conf['runlevel_reason']); break;
-		case 2: ($gid == 0 OR ($gid != 1 AND $method != 'GET' AND !$is_user_action)) AND message(-1, '当前站点设置状态：会员只读'); break;
-		case 3: $gid == 0 AND !$is_user_action AND message(-1, '当前站点设置状态：会员可读写，游客不允许访问'); break;
-		case 4: $method != 'GET' AND message(-1, '当前站点设置状态：所有用户只读'); break;
+		case 1: message(-1, lang('runlevel_reson_1')); break;
+		case 2: ($gid == 0 || $method != 'GET') AND message(-1, lang('runlevel_reson_2')); break;
+		case 3: $gid == 0 AND message(-1, lang('runlevel_reson_3')); break;
+		case 4: $method != 'GET' AND message(-1, lang('runlevel_reson_4')); break;
 		//case 5: break;
 	}
+	// hook model_check_runlevel_end.php
 }
 
-function check_banip($ip) {
-	global $conf, $gid;
-	if(empty($conf['banip_on'])) return;
-	if($gid == 1) return;
-	$r = banip_read_by_ip($ip);
-	$r AND message(-1, '您的 IP 已经被禁止。');
-}
-
-function check_standard_browser() {
-	global $browser;
-	if($browser['name'] == 'ie' && $browser['version'] < 10) {
-		header('Location: browser.htm');
-		exit;
-		//return FALSE;
+/*
+	message(0, '登录成功');
+	message(1, '密码错误');
+	message(-1, '数据库连接失败');
+	
+	code:
+		< 0 全局错误，比如：系统错误：数据库丢失连接/文件不可读写
+		= 0 正确
+		> 0 一般业务逻辑错误，可以定位到具体控件，比如：用户名为空/密码为空
+*/
+function message($code, $message, $extra = array()) {
+	global $ajax, $header, $conf;
+	
+	$arr = $extra;
+	$arr['code'] = $code.'';
+	$arr['message'] = $message;
+	$header['title'] = $conf['sitename'];
+	
+	// hook model_message_start.php
+	
+	// 防止 message 本身出现错误死循环
+	static $called = FALSE;
+	$called ? exit(xn_json_encode($arr)) : $called = TRUE;
+	if($ajax) {
+		echo xn_json_encode($arr);
 	} else {
-		//return TRUE;
+		if(IN_CMD) {
+			if(is_array($message) || is_object($message)) {
+				print_r($message);
+			} else {
+				echo $message;
+			}
+			exit;
+		} else {
+			if(defined('MESSAGE_HTM_PATH')) {
+				include _include(MESSAGE_HTM_PATH);
+			} else {
+				include _include(APP_PATH."view/htm/message.htm");
+			}
+		}
 	}
+	// hook model_message_end.php
+	exit;
 }
+
+// 上锁
+function xn_lock_start($lockname = '', $life = 10) {
+	global $conf, $time;
+	$lockfile = $conf['tmp_path'].'lock_'.$lockname.'.lock';
+	if(is_file($lockfile)) {
+		// 大于 $life 秒，删除锁
+		if($time - filemtime($lockfile) > $life) {
+			xn_unlink($lockfile);
+		} else {
+			// 锁存在，上锁失败。
+			return FALSE;
+		}
+	}
+	
+	$r = file_put_contents($lockfile, $time, LOCK_EX);
+	return $r;
+}
+
+// 删除锁
+function xn_lock_end($lockname = '') {
+	global $conf, $time;
+	$lockfile = $conf['tmp_path'].'lock_'.$lockname.'.lock';
+	xn_unlink($lockfile);
+}
+
+
+// class xn_html_safe 由 axiuno@gmail.com 编写
+
+include_once XIUNOPHP_PATH.'xn_html_safe.func.php';
+
+function xn_html_safe($doc, $arg = array()) {
+	
+	// hook model_xn_html_safe_start.php
+	
+	empty($arg['table_max_width']) AND $arg['table_max_width'] = 746; // 这个宽度为 bbs 回帖宽度
+	
+	$pattern = array (
+		//'img_url'=>'#^(https?://[^\'"\\\\<>:\s]+(:\d+)?)?([^\'"\\\\<>:\s]+?)*$#is',
+		'img_url'=>'#^(((https?://[^\'"\\\\<>:\s]+(:\d+)?)?([^\'"\\\\<>:\s]+?)*)|(data:image/png;base64,[\w\/+]+))$#is',
+		'url'=>'#^(https?://[^\'"\\\\<>:\s]+(:\d+)?)?([^\'"\\\\<>:\s]+?)*$#is', // '#https?://[\w\-/%?.=]+#is'
+		'mailto'=>'#^mailto:([\w%\-\.]+)@([\w%\-\.]+)(\.[\w%\-\.]+?)+$#is',
+		'ftp_url'=>'#^ftp:([\w%\-\.]+)@([\w%\-\.]+)(\.[\w%\-\.]+?)+$#is',
+		'ed2k_url'=>'#^(?:ed2k|thunder|qvod|magnet)://[^\s\'\"\\\\<>]+$#is',
+		'color'=>'#^(\#\w{3,6})|(rgb\(\d+,\s*\d+,\s*\d+\)|(\w{3,10}))$#is',
+		'safe'=>'#^[\w\-:;\.\s\x7f-\xff]+$#is',
+		'css'=>'#^[\(,\)\#;\w\-\.\s\x7f-\xff]+$#is',
+		'word'=>'#^[\w\-\x7f-\xff]+$#is',
+	);
+
+	$white_tag = array('a', 'b', 'i', 'u', 'font', 'strong', 'em', 'span',
+		'table', 'tr', 'td', 'th', 'tbody', 'thead', 'tfoot','caption',
+		'ol', 'ul', 'li', 'dl', 'dt', 'dd', 'menu', 'multicol',
+		'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'p', 'div', 'pre',
+		'br', 'img', 'area',  'embed', 'code', 'blockquote', 'iframe', 'section', 'fieldset', 'legend'
+	);
+	$white_value = array(
+		'href'=>array('pcre', '', array($pattern['url'], $pattern['ed2k_url'])),
+		'src'=>array('pcre', '', array($pattern['img_url'])),
+		'width'=>array('range', '', array(0, 4096)),
+		'height'=>array('range', 'auto', array(0, 80000)),
+		'size'=>array('range', 4, array(-10, 10)),
+		'border'=>array('range', 0, array(0, 10)),
+		'family'=>array('pcre', '', array($pattern['word'])),
+		'class'=>array('pcre', '', array($pattern['safe'])),
+		'face'=>array('pcre', '', array($pattern['word'])),
+		'color'=>array('pcre', '', array($pattern['color'])),
+		'alt'=>array('pcre', '', array($pattern['safe'])),
+		'label'=>array('pcre', '', array($pattern['safe'])),
+		'title'=>array('pcre', '', array($pattern['safe'])),
+		'target'=>array('list', '_self', array('_blank', '_self')),
+		'type'=>array('pcre', '', array('#^[\w/\-]+$#')),
+		'allowfullscreen'=>array('list', 'true', array('true', '1', 'on')),
+		'wmode'=>array('list', 'transparent', array('transparent', '')),
+		'allowscriptaccess'=>array('list', 'never', array('never')),
+		'value'=>array('list', '', array('#^[\w+/\-]$#')),
+		'cellspacing'=>array('range', 0, array(0, 10)),
+		'cellpadding'=>array('range', 0, array(0, 10)),
+		'frameborder'=>array('range', 0, array(0, 10)),
+		'allowfullscreen'=>array('range', 0, array(0, 10)),
+		'align'=>array('list', 'left', array('left', 'center', 'right')),
+		'valign'=>array('list', 'middle', array('middle', 'top', 'bottom')),
+        'name'=>array('pcre', '', array($pattern['word'])),
+	);
+	$white_css = array(
+		'font'=>array('pcre', 'none', array($pattern['safe'])),
+		'font-style'=>array('pcre', 'none', array($pattern['safe'])),
+		'font-weight'=>array('pcre', 'none', array($pattern['safe'])),
+		'font-family'=>array('pcre', 'none', array($pattern['word'])),
+		'font-size'=>array('range', 12, array(6, 48)),
+		'width'=>array('range', '100%', array(1, 1800)),
+		'height'=>array('range', '', array(1, 80000)),
+		'min-width'=>array('range', 1, array(1, 80000)),
+		'min-height'=>array('range', 400, array(1, 80000)),
+		'max-width'=>array('range', 1800, array(1, 80000)),
+		'max-height'=>array('range', 80000, array(1, 80000)),
+		'line-height'=>array('range', '14px', array(1, 50)),
+		'color'=>array('pcre', '#000000', array($pattern['color'])),
+		'background'=>array('pcre', 'none', array($pattern['color'], '#url\((https?://[^\'"\\\\<>]+?:?\d?)?([^\'"\\\\<>:]+?)*\)[\w\s\-]*$#')),
+		'background-color'=>array('pcre', 'none', array($pattern['color'])),
+		'background-image'=>array('pcre', 'none', array($pattern['img_url'])),
+		'background-position'=>array('pcre', 'none', array($pattern['safe'])),
+		'border'=>array('pcre', 'none', array($pattern['css'])),
+		'border-left'=>array('pcre', 'none', array($pattern['css'])),
+		'border-right'=>array('pcre', 'none', array($pattern['css'])),
+		'border-top'=>array('pcre', 'none', array($pattern['css'])),
+		'border-left-color'=>array('pcre', 'none', array($pattern['css'])),
+		'border-right-color'=>array('pcre', 'none', array($pattern['css'])),
+		'border-top-color'=>array('pcre', 'none', array($pattern['css'])),
+		'border-bottom-color'=>array('pcre', 'none', array($pattern['css'])),
+		'border-left-width'=>array('pcre', 'none', array($pattern['css'])),
+		'border-right-width'=>array('pcre', 'none', array($pattern['css'])),
+		'border-top-width'=>array('pcre', 'none', array($pattern['css'])),
+		'border-bottom-width'=>array('pcre', 'none', array($pattern['css'])),
+		'border-bottom-style'=>array('pcre', 'none', array($pattern['css'])),
+		'margin-left'=>array('range', 0, array(0, 100)),
+		'margin-right'=>array('range', 0, array(0, 100)),
+		'margin-top'=>array('range', 0, array(0, 100)),
+		'margin-bottom'=>array('range', 0, array(0, 100)),
+		'margin'=>array('pcre', '', array($pattern['safe'])),
+		'padding'=>array('pcre', '', array($pattern['safe'])),
+		'padding-left'=>array('range', 0, array(0, 100)),
+		'padding-right'=>array('range', 0, array(0, 100)),
+		'padding-top'=>array('range', 0, array(0, 100)),
+		'padding-bottom'=>array('range', 0, array(0, 100)),
+		'zoom'=>array('range', 1, array(1, 10)),
+		'list-style'=>array('list', 'none', array('disc', 'circle', 'square', 'decimal', 'lower-roman', 'upper-roman', 'none')),
+		'text-align'=>array('list', 'left', array('left', 'right', 'center', 'justify')),
+		'text-indent'=>array('range', 0, array(0, 100)),
+		
+		// 代码高亮需要支持，但是不安全！
+		/*
+		'position'=>array('list', 'static', array('absolute', 'fixed', 'relative', 'static')),
+		'left'=>array('range', 0, array(0, 1000)),
+		'top'=>array('range', 0, array(0, 1000)),
+		'white-space'=>array('list', 'nowrap', array('nowrap', 'pre')),
+		'word-wrap'=>array('list', 'normal', array('break-word', 'normal')),
+		'word-break'=>array('list', 'break-all', array('break-all', 'normal')),
+		'display'=>array('list', 'block', array('block', 'table', 'none', 'inline-block', 'table-cell')),
+		'overflow'=>array('list', 'auto', array('scroll', 'hidden', 'auto')),
+		'overflow-x'=>array('list', 'auto', array('scroll', 'hidden', 'auto')),
+		'overflow-y'=>array('list', 'auto', array('scroll', 'hidden', 'auto')),
+		*/
+		
+	);
+	
+	// hook model_xn_html_safe_new_before.php
+	$safehtml = new HTML_White($white_tag, $white_value, $white_css, $arg);
+	
+	// hook model_xn_html_safe_parse_before.php
+	$result = $safehtml->parse($doc);
+	
+	// hook model_xn_html_safe_end.php
+	
+	return $result;
+}
+
+// hook model_misc_end.php
+
 ?>
